@@ -33,4 +33,16 @@ class UserDao {
         session.close();
         return false;
     }
+    
+    public static String getUserRank(String name, String password){
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+        String sql = " from User u where u.login=:name and u.password=:pass";
+        Query query = session.createQuery(sql);
+        query.setParameter("name", name);
+        query.setParameter("pass", password);
+        List<User> list = query.list();
+        
+        return list.get(0).getRank();
+    }
 }
