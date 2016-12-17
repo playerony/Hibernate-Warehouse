@@ -6,7 +6,7 @@
 package com.warehouse.dao;
 
 import com.warehouse.entity.User;
-import com.warehouse.utility.HibernateUtility;
+import com.warehouse.utility.HibernateUtil;
 import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -16,9 +16,9 @@ import org.hibernate.Session;
  * @author pawel_000
  */
 class UserDao {
-    public boolean find(String name, String password) {
-        Session session = HibernateUtility.getSessionFactory().openSession();
-        //session.beginTransaction();
+    public static boolean find(String name, String password) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
         String sql = " from User u where u.login=:name and u.password=:pass";
         Query query = session.createQuery(sql);
         query.setParameter("name", name);

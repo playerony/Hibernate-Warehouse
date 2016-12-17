@@ -14,18 +14,16 @@ import org.hibernate.service.ServiceRegistry;
  *
  * @author pawel_000
  */
-public class HibernateUtility {
+
+public class HibernateUtil {
     private static SessionFactory sessionFactory;
+    private static ServiceRegistry serviceRegistry;
  
     public static SessionFactory getSessionFactory() {
-        if (sessionFactory == null) {
-            Configuration configuration = new Configuration().configure();
-            ServiceRegistry serviceRegistry
-                    = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties()).build();
- 
-            sessionFactory = configuration.buildSessionFactory(serviceRegistry);
-        }
- 
+        Configuration configuration = new Configuration().configure();
+        serviceRegistry = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties()).build();
+        sessionFactory = configuration.buildSessionFactory(serviceRegistry);
+        
         return sessionFactory;
     }
 }

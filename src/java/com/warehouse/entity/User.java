@@ -6,12 +6,19 @@
 package com.warehouse.entity;
 
 import java.io.Serializable;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 
 /**
  *
  * @author pawel_000
  */
+
+@Entity(name = "worker")
 public class User implements Serializable{
+    @Id
+    @GeneratedValue
     private long id;
     private String login;
     private String password;
