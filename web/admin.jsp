@@ -17,7 +17,7 @@
             <input type="submit" value="1. Add Worker">
         </form>
 	
-        <form method="post" action="DeleteWorkerServlet">
+        <form method="post" action="deleteWorker.jsp">
             <input type="submit" value="2. Delete Worker">
         </form>
 	

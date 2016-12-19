@@ -48,6 +48,28 @@ class UserDao {
         return true;
     }
     
+    public static boolean deleteWorker(String firstname, String lastname){
+        boolean result = false;
+        
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+        
+        String sql = " delete User where firstname=:name and lastname=:surname";
+        Query query = session.createQuery(sql);
+        query.setParameter("name", firstname);
+        query.setParameter("surname", lastname);
+        int value = query.executeUpdate();
+        if(value==0)
+            result = false;
+        else
+            result = true;
+        
+        session.getTransaction().commit(); 
+        session.close();
+        
+        return result;
+    }
+    
     public static String getUserRank(String name, String password){
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();

@@ -5,6 +5,8 @@
  */
 package com.warehouse.dao;
 
+import com.warehouse.other.Validate;
+
 /**
  *
  * @author pawel_000
@@ -13,12 +15,28 @@ public class DeleteWorkerAction extends AbstractAction {
 
     @Override
     public void validate() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if (user.getFirstname().length() == (0)) {
+            this.addFieldError("user.firstname", "Firstname is required");
+        }
+        
+        if (!Validate.checkNumbersInString(user.getFirstname())) {
+            this.addFieldError("user.firstname", "Wrong firstname");
+        }
+        
+        if (user.getLastname().length() == (0)) {
+            this.addFieldError("user.lastname", "Lastname is required");
+        }
+        
+        if (!Validate.checkNumbersInString(user.getLastname())) {
+            this.addFieldError("user.lastname", "Wrong lastname");
+        }
     }
 
     @Override
     public String execute() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        dao.deleteWorker(user.getFirstname(), user.getLastname());
+        
+        return SUCCESS;
     }
     
 }
