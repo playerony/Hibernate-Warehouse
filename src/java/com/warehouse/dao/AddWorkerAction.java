@@ -14,11 +14,7 @@ import com.warehouse.other.Validate;
  *
  * @author pawel_000
  */
-public class AddWorkerAction extends ActionSupport {
-    private static final long serialVersionUID = 1L;    
-    UserDao dao = new UserDao();
-    User user;
-    
+public class AddWorkerAction extends AbstractAction {
     @Override
      public void validate() {
         if (user.getLogin().length() == (0)) {
@@ -55,12 +51,4 @@ public class AddWorkerAction extends ActionSupport {
         
         return SUCCESS;
     }
-    
-    public User getUser() {
-        return user;
-    }
- 
-    public void setUser(final User user) {
-        this.user = user;
-    } 
 }
