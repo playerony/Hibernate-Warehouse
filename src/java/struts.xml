@@ -16,5 +16,11 @@
             <result name="success">/admin.jsp</result>
             <result name="input">/addWorker.jsp</result>
         </action>
+        
+        <action name="add" class="com.warehouse.dao.DeleteWorkerAction">
+            <result name="success">/deleteWorker.jsp</result>
+            <result name="input">/deleteWorker.jsp</result>
+            <result name="back">/admin.jsp</result>
+        </action>
     </package>
 </struts>
