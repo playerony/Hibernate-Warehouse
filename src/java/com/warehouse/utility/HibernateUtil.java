@@ -19,11 +19,15 @@ public class HibernateUtil {
     private static SessionFactory sessionFactory;
     private static ServiceRegistry serviceRegistry;
  
-    public static SessionFactory getSessionFactory() {
+    public static SessionFactory createSessionFactory() {
         Configuration configuration = new Configuration().configure();
         serviceRegistry = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties()).build();
         sessionFactory = configuration.buildSessionFactory(serviceRegistry);
         
+        return sessionFactory;
+    }
+    
+    public static SessionFactory getSessionFactory() {
         return sessionFactory;
     }
 }

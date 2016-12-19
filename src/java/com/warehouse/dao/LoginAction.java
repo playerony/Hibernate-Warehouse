@@ -6,6 +6,7 @@
 package com.warehouse.dao;
 
 import com.opensymphony.xwork2.ActionSupport;
+import com.warehouse.cookie.SessionManager;
 import com.warehouse.entity.User;
 
 /**
@@ -14,14 +15,15 @@ import com.warehouse.entity.User;
  */
 public class LoginAction extends ActionSupport{
     private static final long serialVersionUID = 1L;    
-    UserDao dao = new UserDao();
-    User user;
+    private UserDao dao = new UserDao();
+    private User user;
  
     @Override
     public void validate() {
         if (user.getLogin().length() == (0)) {
             this.addFieldError("user.login", "Name is required");
         }
+        
         if (user.getPassword().length() == (0)) {
             this.addFieldError("user.password", "Password is required");
         }
@@ -30,7 +32,12 @@ public class LoginAction extends ActionSupport{
     @Override
     public String execute() {
         if (dao.find(user.getLogin(), user.getPassword())) {
-            return SUCCESS;
+            String rank = dao.getUserRank(user.getLogin(), user.getPassword());
+            
+            SessionManager.createCookie("login", user.getLogin());
+            SessionManager.createCookie("rank", rank);
+          
+            return rank;
         } else {
             this.addActionError("Invalid username and password");
         }

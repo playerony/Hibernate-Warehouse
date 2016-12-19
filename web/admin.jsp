@@ -13,6 +13,24 @@
         <title>Admin panel</title>
     </head>
     <body>
-        <b>Welcome,<s:property value="user.login"/></b>
+        <form method="post" action="addWorker.jsp">
+            <input type="submit" value="1. Add Worker">
+        </form>
+	
+        <form method="post" action="DeleteWorkerServlet">
+            <input type="submit" value="2. Delete Worker">
+        </form>
+	
+        <form method="post" action="PickingCheckSession">
+            <input type="submit" value="3. Picking">
+        </form>
+            
+        <form method="post" action="PackingCheckSession">
+            <input type="submit" value="4. Packing">
+        </form>
+	
+        <form method="post" action="Logout">
+            <input type="submit" value="5. Logout">
+        </form>
     </body>
 </html>

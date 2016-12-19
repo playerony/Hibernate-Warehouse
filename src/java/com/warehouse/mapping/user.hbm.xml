@@ -41,12 +41,15 @@ Contributor(s):
 -->
 <hibernate-mapping>
   <class dynamic-insert="false" dynamic-update="false" mutable="true" name="com.warehouse.entity.User" table="worker" optimistic-lock="version" polymorphism="implicit" select-before-update="false">
-    <id name="id" type="int" column="worker_id"> 
+    <id name="id" type="int" column="worker_id" length="10"> 
         <generator class="assigned"></generator>  
     </id> 
     
-    <property name="login" column="worker_login" type="string"/>  
-    <property name="password" column="worker_password" type="string"/>  
-    <property name="rank" column="worker_rank" type="string"/> 
+    <property name="firstname" column="worker_firstname" length="10" type="string"/>  
+    <property name="lastname" column="worker_lastname" length="10" type="string"/>  
+    <property name="login" column="worker_login" length="10" type="string"/>  
+    <property name="password" column="worker_password" length="10" type="string"/>  
+    <property name="place" column="work_place" length="10" type="string"/> 
+    <property name="rank" column="worker_rank" length="10" type="string"/> 
   </class>
 </hibernate-mapping>

@@ -17,7 +17,7 @@ import org.hibernate.Session;
  */
 class UserDao {
     public static boolean find(String name, String password) {
-        Session session = HibernateUtil.getSessionFactory().openSession();
+        Session session = HibernateUtil.createSessionFactory().openSession();
         session.beginTransaction();
         String sql = " from User u where u.login=:name and u.password=:pass";
         Query query = session.createQuery(sql);
@@ -32,6 +32,20 @@ class UserDao {
         
         session.close();
         return false;
+    }
+    
+    public static boolean addWorker(int id, String firstname, String lastname, String login, String password, String place, String rank){
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+        
+        User user = new User(id, firstname, lastname, login, password, place, rank);
+        
+        session.save(user);
+        session.getTransaction().commit();
+        
+        session.close();  
+        
+        return true;
     }
     
     public static String getUserRank(String name, String password){

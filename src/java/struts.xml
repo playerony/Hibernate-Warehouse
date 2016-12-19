@@ -7,8 +7,14 @@
 <struts>
     <package name="default" extends="struts-default">
         <action name="login" class="com.warehouse.dao.LoginAction">
-            <result name="success">/admin.jsp</result>
+            <result name="admin">/admin.jsp</result>
+            <result name="worker">/worker.jsp</result>
             <result name="input">/login.jsp</result>
+        </action>
+        
+        <action name="add" class="com.warehouse.dao.AddWorkerAction">
+            <result name="success">/admin.jsp</result>
+            <result name="input">/addWorker.jsp</result>
         </action>
     </package>
 </struts>

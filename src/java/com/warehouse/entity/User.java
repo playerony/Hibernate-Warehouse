@@ -6,20 +6,17 @@
 package com.warehouse.entity;
 
 import java.io.Serializable;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 
 /**
  *
  * @author pawel_000
  */
 
-@Entity(name = "worker")
 public class User implements Serializable{
-    @Id
-    @GeneratedValue
-    private long id;
+    private int id;
+    private String firstname;
+    private String lastname;
+    private String place;
     private String login;
     private String password;
     private String rank;
@@ -28,25 +25,45 @@ public class User implements Serializable{
         
     }
     
-    public User(long id, String login, String password){
-        this.id = id;
-        this.login = login;
-        this.password = password;
-    }
-    
-    public User(long id, String login, String password, String rank){
+    public User(int id, String login, String password, String rank){
         this.id = id;
         this.login = login;
         this.password = password;
         this.rank = rank;
     }
+    
+    public User(int id, String firstname, String lastname, String login, String password, String place, String rank){
+        this.id = id;
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.login = login;
+        this.password = password;
+        this.place = place;
+        this.rank = rank;
+    }
 
-    public long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
+    }
+    
+    public String getFirstname() {
+        return firstname;
+    }
+
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
+    }
+
+    public String getLastname() {
+        return lastname;
+    }
+
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
     }
     
     public String getLogin() {
@@ -63,6 +80,14 @@ public class User implements Serializable{
 
     public void setPassword(String password) {
         this.password = password;
+    }
+    
+    public String getPlace() {
+        return place;
+    }
+
+    public void setPlace(String place) {
+        this.place = place;
     }
 
     public String getRank() {
