@@ -13,7 +13,7 @@
         <title>Delete Worker Panel</title>
     </head>
     <body>
-        <s:form action="add">
+        <s:form action="delete">
             <s:textfield name="user.firstname" label="Firstname"/>
             <s:textfield name="user.lastname" label="Lastname"/>
 

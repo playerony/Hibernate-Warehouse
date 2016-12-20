@@ -21,7 +21,7 @@
             <input type="submit" value="2. Delete Worker">
         </form>
 	
-        <form method="post" action="PickingCheckSession">
+        <form method="post" action="pickingCheckOrderNumber.jsp">
             <input type="submit" value="3. Picking">
         </form>
             
