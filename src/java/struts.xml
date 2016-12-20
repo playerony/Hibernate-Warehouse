@@ -25,7 +25,7 @@
     </package>
     
     <package name="picking" extends="struts-default">
-        <action name="checkOrder" class="com.warehouse.dao.user.CheckOrderNumber">
+        <action name="checkOrder" class="com.warehouse.dao.picking.CheckOrderNumber">
             <result name="success">/pickingMenu.jsp</result>
             <result name="input">/pickingCheckOrderNumber.jsp</result>
         </action>
