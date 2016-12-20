@@ -23,4 +23,11 @@
             <result name="back">/admin.jsp</result>
         </action>
     </package>
+    
+    <package name="picking" extends="struts-default">
+        <action name="checkOrder" class="com.warehouse.dao.user.CheckOrderNumber">
+            <result name="success">/pickingMenu.jsp</result>
+            <result name="input">/pickingCheckOrderNumber.jsp</result>
+        </action>
+    </package>
 </struts>
