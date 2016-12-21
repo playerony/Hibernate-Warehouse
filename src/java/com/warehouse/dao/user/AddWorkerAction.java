@@ -11,7 +11,7 @@ import com.warehouse.other.Validate;
  *
  * @author pawel_000
  */
-public class AddWorkerAction extends AbstractAction {
+public class AddWorkerAction extends AbstractUserAction {
     @Override
      public void validate() {
         if (user.getLogin().length() == (0)) {

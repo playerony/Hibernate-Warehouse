@@ -11,7 +11,7 @@ import com.warehouse.other.Validate;
  *
  * @author pawel_000
  */
-public class DeleteWorkerAction extends AbstractAction {
+public class DeleteWorkerAction extends AbstractUserAction {
 
     @Override
     public void validate() {

@@ -11,7 +11,7 @@ import com.warehouse.cookie.SessionManager;
  *
  * @author pawel_000
  */
-public class LoginAction extends AbstractAction{
+public class LoginAction extends AbstractUserAction{
     @Override
     public void validate() {
         if (user.getLogin().length() == (0)) {

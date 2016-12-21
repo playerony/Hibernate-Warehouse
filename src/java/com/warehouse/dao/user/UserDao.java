@@ -38,8 +38,6 @@ class UserDao {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
         
-        System.out.print(firstname + " " + lastname + " " + login + " " + password);
-        
         User user = new User(id, firstname, lastname, login, password, place, rank);
         
         session.save(user);
