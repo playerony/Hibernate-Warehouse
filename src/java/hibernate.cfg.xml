@@ -51,7 +51,7 @@ Contributor(s):
     <property name="hibernate.connection.characterEncoding">utf8</property>
     <property name="hibernate.connection.useUnicode">true</property>
     <mapping resource="com/warehouse/mapping/user.hbm.xml"/>
-    <mapping resource="com/warehouse/mapping/order.hbm.xml"/>
     <mapping resource="com/warehouse/mapping/client.hbm.xml"/>
+    <mapping resource="com/warehouse/mapping/order.hbm.xml"/>
   </session-factory>
 </hibernate-configuration>

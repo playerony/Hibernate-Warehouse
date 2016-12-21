@@ -40,7 +40,7 @@ made subject to such option by the copyright holder.
 Contributor(s):
 -->
 <hibernate-mapping>
-    <class dynamic-insert="false" dynamic-update="false" mutable="true" name="com.warehouse.entity.Client" optimistic-lock="version" polymorphism="implicit" select-before-update="false">
+    <class dynamic-insert="false" dynamic-update="false" mutable="true" name="com.warehouse.entity.Client" table="client" optimistic-lock="version" polymorphism="implicit" select-before-update="false">
         <id name="id" type="int" column="client_id" length="10"> 
             <generator class="assigned"/>
         </id> 

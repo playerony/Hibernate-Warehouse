@@ -40,13 +40,13 @@ made subject to such option by the copyright holder.
 Contributor(s):
 -->
 <hibernate-mapping>
-    <class dynamic-insert="false" dynamic-update="false" mutable="true" name="com.warehouse.entity.Order" table="order" optimistic-lock="version" polymorphism="implicit" select-before-update="false">
+    <class dynamic-insert="false" dynamic-update="false" mutable="true" name="com.warehouse.entity.Order" table="order_list" optimistic-lock="version" polymorphism="implicit" select-before-update="false">
         <id name="id" type="int" column="order_id" length="10"> 
             <generator class="assigned"/>
         </id> 
 
         <property name="items" column="order_items" type="string" />  
-        <property name="date" column="when_order" type="string"/>
+        <property name="date" column="when_order" type="date"/>
         <many-to-one name="client" column="client_id"/>
     </class>
 </hibernate-mapping>
