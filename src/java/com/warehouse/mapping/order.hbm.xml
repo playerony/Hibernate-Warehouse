@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!--
 DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
 
@@ -38,18 +39,14 @@ made subject to such option by the copyright holder.
 
 Contributor(s):
 -->
-
-<!DOCTYPE hibernate-mapping PUBLIC
-  "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
-  "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-
 <hibernate-mapping>
-  <class dynamic-insert="false" dynamic-update="false" mutable="true" name="com.warehouse.entity.Client" table="order" optimistic-lock="version" polymorphism="implicit" select-before-update="false"/>
-    <id name="id" type="int" column="order_id" length="10"> 
-        <generator class="assigned"></generator>  
-    </id> 
-    
-    <property name="items" column="order_items" type="string"/>  
-    <property name="date" column="when_order" type="date"/>  
-    <many-to-one name="client" column="client_id"/>
+    <class dynamic-insert="false" dynamic-update="false" mutable="true" name="com.warehouse.entity.Order" table="order" optimistic-lock="version" polymorphism="implicit" select-before-update="false">
+        <id name="id" type="int" column="order_id" length="10"> 
+            <generator class="assigned"/>
+        </id> 
+
+        <property name="items" column="order_items" type="string" />  
+        <property name="date" column="when_order" type="string"/>
+        <many-to-one name="client" column="client_id"/>
+    </class>
 </hibernate-mapping>

@@ -27,6 +27,12 @@ public class Order implements Serializable{
         this.items = items;
     }
     
+    public Order(int id, String items, Date date){
+        this.id = id;
+        this.items = items;
+        this.date = date;
+    }
+    
     public Order(int id, String items, Date date, Client client){
         this.id = id;
         this.items = items;
