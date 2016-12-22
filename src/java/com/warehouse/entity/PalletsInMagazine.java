@@ -18,6 +18,11 @@ public class PalletsInMagazine {
         
     }
     
+    public PalletsInMagazine(int id, String location){
+        this.id = id;
+        this.location = location;
+    }
+    
     public PalletsInMagazine(int id, String products, String location){
         this.id = id;
         this.products = products;
