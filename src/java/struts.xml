@@ -36,5 +36,15 @@
             <result name="worker">/worker.jsp</result>
             <result name="input">/pickingMenu.jsp</result>
         </action>
+        
+        <action name="finishPick" class="com.warehouse.dao.picking.PickingButtonAction" method="finishButtonAction">
+            <result name="admin">/admin.jsp</result>
+            <result name="worker">/worker.jsp</result>
+        </action>
+        
+        <action name="backPick" class="com.warehouse.dao.picking.PickingButtonAction" method="backButtonAction">
+            <result name="admin">/admin.jsp</result>
+            <result name="worker">/worker.jsp</result>
+        </action>
     </package>
 </struts>
