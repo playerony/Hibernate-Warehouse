@@ -32,5 +32,4 @@ public class PickingMenuAction extends AbstractPickingAction {
     public String execute() {
         return SUCCESS;
     }
-    
 }
