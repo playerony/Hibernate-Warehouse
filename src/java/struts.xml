@@ -29,5 +29,12 @@
             <result name="success">/pickingMenu.jsp</result>
             <result name="input">/pickingCheckOrderNumber.jsp</result>
         </action>
+        
+        <action name="pickMenu" class="com.warehouse.dao.picking.PickingMenuAction">
+            <result name="success">/pickingMenu.jsp</result>
+            <result name="admin">/admin.jsp</result>
+            <result name="worker">/worker.jsp</result>
+            <result name="input">/pickingMenu.jsp</result>
+        </action>
     </package>
 </struts>
