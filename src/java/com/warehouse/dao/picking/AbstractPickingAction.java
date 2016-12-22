@@ -8,6 +8,8 @@ package com.warehouse.dao.picking;
 import com.opensymphony.xwork2.ActionSupport;
 import com.warehouse.entity.Client;
 import com.warehouse.entity.Order;
+import com.warehouse.entity.PalleteInfo;
+import com.warehouse.entity.PalletsInMagazine;
 
 /**
  *
@@ -16,6 +18,8 @@ import com.warehouse.entity.Order;
 public abstract class AbstractPickingAction extends ActionSupport{
     protected Order order;
     protected Client client;
+    protected PalleteInfo palleteInfo;
+    protected PalletsInMagazine palletsInMagazine;
     protected ClientDao clientDao = new ClientDao();
     protected OrderDao orderDao = new OrderDao();
     
@@ -39,4 +43,20 @@ public abstract class AbstractPickingAction extends ActionSupport{
     public void setOrder(Order order) {
         this.order = order;
     } 
+    
+    public PalleteInfo getPalleteInfo() {
+        return palleteInfo;
+    }
+
+    public void setPalleteInfo(PalleteInfo palleteInfo) {
+        this.palleteInfo = palleteInfo;
+    }
+
+    public PalletsInMagazine getPalletsInMagazine() {
+        return palletsInMagazine;
+    }
+
+    public void setPalletsInMagazine(PalletsInMagazine palletsInMagazine) {
+        this.palletsInMagazine = palletsInMagazine;
+    }
 }
