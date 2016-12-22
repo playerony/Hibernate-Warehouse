@@ -14,9 +14,9 @@
     </head>
     <body>
          <s:form action="pickMenu">
-            <s:textfield name="palleteInfo.id" label="Product id: "/>
-            <s:textfield name="palleteInfo.amount" label="Amount: "/>
-            <s:textfield name="PalletsInMagazine.location" label="Location: "/>
+            <s:textfield name="palleteInfo.id" label="Product id"/>
+            <s:textfield name="palleteInfo.amount" label="Amount"/>
+            <s:textfield name="palletsInMagazine.location" label="Location"/>
 
             <s:submit value="Add next item" name="button"/>
             <s:submit value="Finish" name="button"/>

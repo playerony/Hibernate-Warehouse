@@ -14,7 +14,7 @@
     </head>
     <body>
         <s:form action="checkOrder">
-            <s:textfield name="order.id" label="Order id: "/>
+            <s:textfield name="order.id" label="Order id "/>
 		
             <s:submit value="Check order number"/>
         </s:form>
