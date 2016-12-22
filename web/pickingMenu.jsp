@@ -17,10 +17,16 @@
             <s:textfield name="palleteInfo.id" label="Product id"/>
             <s:textfield name="palleteInfo.amount" label="Amount"/>
             <s:textfield name="palletsInMagazine.location" label="Location"/>
-
-            <s:submit value="Add next item" name="button"/>
-            <s:submit value="Finish" name="button"/>
-            <s:submit value="Back" name="button"/>
+            
+            <s:submit value="Add another item"/>
+        </s:form>
+        
+        <s:form action="finishPick">
+            <s:submit value="Finish"/>
+        </s:form>
+        
+        <s:form action="backPick">
+            <s:submit value="Back"/>
         </s:form>
     </body>
 </html>
