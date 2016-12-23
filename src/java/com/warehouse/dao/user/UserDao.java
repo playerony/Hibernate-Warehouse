@@ -16,7 +16,7 @@ import org.hibernate.Session;
  * @author pawel_000
  */
 class UserDao {
-    public static boolean find(String name, String password) {
+    public boolean find(String name, String password) {
         Session session = HibernateUtil.createSessionFactory().openSession();
         session.beginTransaction();
         String sql = " from User u where u.login=:name and u.password=:pass";
@@ -34,7 +34,7 @@ class UserDao {
         return false;
     }
     
-    public static boolean addWorker(int id, String firstname, String lastname, String login, String password, String place, String rank){
+    public boolean addWorker(int id, String firstname, String lastname, String login, String password, String place, String rank){
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
         
@@ -48,7 +48,7 @@ class UserDao {
         return true;
     }
     
-    public static boolean deleteWorker(String firstname, String lastname){
+    public boolean deleteWorker(String firstname, String lastname){
         boolean result = false;
         
         Session session = HibernateUtil.getSessionFactory().openSession();
@@ -70,7 +70,7 @@ class UserDao {
         return result;
     }
     
-    public static String getUserRank(String name, String password){
+    public String getUserRank(String name, String password){
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
         String sql = " from User u where u.login=:name and u.password=:pass";
@@ -80,5 +80,17 @@ class UserDao {
         List<User> list = query.list();
         
         return list.get(0).getRank();
+    }
+    
+    public String getUserID(String name, String password){
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+        String sql = " from User u where u.login=:name and u.password=:pass";
+        Query query = session.createQuery(sql);
+        query.setParameter("name", name);
+        query.setParameter("pass", password);
+        List<User> list = query.list();
+        
+        return String.valueOf(list.get(0).getId());
     }
 }
