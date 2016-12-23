@@ -6,7 +6,6 @@
 package com.warehouse.dao.picking;
 
 import com.warehouse.cookie.SessionManager;
-import com.warehouse.other.Validate;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.struts2.interceptor.ServletRequestAware;

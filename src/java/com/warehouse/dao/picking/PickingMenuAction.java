@@ -5,13 +5,12 @@
  */
 package com.warehouse.dao.picking;
 
-import com.warehouse.other.Validate;
-
 /**
  *
  * @author pawel_000
  */
 public class PickingMenuAction extends AbstractPickingAction {
+    private PickingDao pickingDao = new PickingDao();
 
     @Override
     public void validate() {
@@ -30,6 +29,12 @@ public class PickingMenuAction extends AbstractPickingAction {
 
     @Override
     public String execute() {
-        return SUCCESS;
+        if(pickingDao.nextItemButtonAction(palleteInfo, palletsInMagazine))
+            return SUCCESS;
+        else{
+            this.addActionError("Some problems by adding next item!");
+            
+            return INPUT;
+        }
     }
 }
