@@ -5,16 +5,10 @@
  */
 package com.warehouse.dao.picking;
 
-import com.warehouse.cookie.SessionManager;
 import com.warehouse.entity.Order;
 import com.warehouse.entity.PalleteInfo;
 import com.warehouse.utility.HibernateUtil;
 import java.util.List;
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import org.apache.struts2.interceptor.ServletRequestAware;
-import org.apache.struts2.interceptor.ServletResponseAware;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
