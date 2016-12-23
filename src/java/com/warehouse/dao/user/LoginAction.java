@@ -5,29 +5,16 @@
  */
 package com.warehouse.dao.user;
 
-import com.warehouse.cookie.SessionManager;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import org.apache.struts2.interceptor.ServletRequestAware;
-import org.apache.struts2.interceptor.ServletResponseAware;
+import java.util.Map;
+import org.apache.struts2.interceptor.SessionAware;
 
 /**
  *
  * @author pawel_000
  */
-public class LoginAction extends AbstractUserAction implements ServletResponseAware, ServletRequestAware{
-    protected HttpServletResponse servletResponse;
-    protected HttpServletRequest servletRequest;
-    
-    @Override
-    public void setServletResponse(HttpServletResponse hsr) {
-        this.servletResponse = hsr;
-    }
-
-    @Override
-    public void setServletRequest(HttpServletRequest hsr) {
-        this.servletRequest = hsr;
-    }
+public class LoginAction extends AbstractUserAction implements SessionAware {
+    private String rank;
+    private Map<String, Object> session;
     
     @Override
     public void validate() {
@@ -45,13 +32,29 @@ public class LoginAction extends AbstractUserAction implements ServletResponseAw
         if (dao.find(user.getLogin(), user.getPassword())) {
             String rank = dao.getUserRank(user.getLogin(), user.getPassword());
             
-            servletResponse.addCookie(SessionManager.createCookie("login", user.getLogin()));
-            servletResponse.addCookie(SessionManager.createCookie("rank", rank));
+            session.put("userID", dao.getUserID(user.getLogin(), user.getPassword()));
+            session.put("rank", rank);
           
             return rank;
         } else {
             this.addActionError("Invalid username and password");
         }
         return INPUT;
+    }
+
+    public String getRank() {
+        return rank;
+    }
+
+    public Map<String, Object> getSession() {
+        return session;
+    }
+
+    public void setRank(String rank) {
+        this.rank = rank;
+    }
+
+    public void setSession(Map<String, Object> map) {
+         this.session = map;
     }
 }
