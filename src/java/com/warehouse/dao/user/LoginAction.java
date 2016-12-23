@@ -54,6 +54,7 @@ public class LoginAction extends AbstractUserAction implements SessionAware {
         this.rank = rank;
     }
 
+    @Override
     public void setSession(Map<String, Object> map) {
          this.session = map;
     }

@@ -5,30 +5,15 @@
  */
 package com.warehouse.dao.picking;
 
-import com.warehouse.cookie.SessionManager;
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import org.apache.struts2.interceptor.ServletRequestAware;
-import org.apache.struts2.interceptor.ServletResponseAware;
+import java.util.Map;
+import org.apache.struts2.interceptor.SessionAware;
 
 /**
  *
  * @author pawel_000
  */
-public class CheckOrderNumber extends AbstractPickingAction implements ServletResponseAware, ServletRequestAware{
-    protected HttpServletResponse servletResponse;
-    protected HttpServletRequest servletRequest;
-    
-    @Override
-    public void setServletResponse(HttpServletResponse hsr) {
-        this.servletResponse = hsr;
-    }
-
-    @Override
-    public void setServletRequest(HttpServletRequest hsr) {
-        this.servletRequest = hsr;
-    }
+public class CheckOrderNumber extends AbstractPickingAction implements SessionAware{
+    private Map<String, Object> session;
 
     @Override
     public void validate() {
@@ -40,13 +25,22 @@ public class CheckOrderNumber extends AbstractPickingAction implements ServletRe
     @Override
     public String execute() {
         if(orderDao.checkOrderById(order.getId())){
-            servletResponse.addCookie(SessionManager.createCookie("orderId", String.valueOf(order.getId())));
+            session.put("orderID", String.valueOf(order.getId()));
             
             return SUCCESS;
         }else{
-            this.addActionError("I can't find this id");
+            this.addActionError("I can't find this id number");
             return INPUT;
         }
+    }
+
+    public Map<String, Object> getSession() {
+        return session;
+    }
+
+    @Override
+    public void setSession(Map<String, Object> map) {
+         this.session = map;
     }
     
 }
