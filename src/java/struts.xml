@@ -6,7 +6,16 @@
  
 <struts>
     <package name="default" extends="struts-default">
+        <interceptors>
+            <interceptor name="globalInterceptor" class="com.warehouse.interceptor.GlobalInterceptor" />
+            <interceptor-stack name="globalStack">
+                <interceptor-ref name="globalInterceptor"/>
+                <interceptor-ref name="defaultStack"/> 
+            </interceptor-stack>
+        </interceptors>
+        
         <action name="login" class="com.warehouse.dao.user.LoginAction">
+            <interceptor-ref name="globalStack" />
             <result name="admin">/admin.jsp</result>
             <result name="worker">/worker.jsp</result>
             <result name="input">/login.jsp</result>
@@ -22,9 +31,7 @@
             <result name="input">/deleteWorker.jsp</result>
             <result name="back">/admin.jsp</result>
         </action>
-    </package>
-    
-    <package name="picking" extends="struts-default">
+        
         <action name="checkOrder" class="com.warehouse.dao.picking.CheckOrderNumber">
             <result name="success">/pickingMenu.jsp</result>
             <result name="input">/pickingCheckOrderNumber.jsp</result>
