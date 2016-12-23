@@ -13,8 +13,17 @@ import com.warehouse.entity.PalletsInMagazine;
  * @author pawel_000
  */
 public class PickingDao {
+    private OrderDao orderDao;
+    
+    public PickingDao(){
+        orderDao = new OrderDao();
+    }
+    
     public boolean nextItemButtonAction(PalleteInfo palleteInfo, PalletsInMagazine palletsInMagazine){
-        
+        if(orderDao.checkOrderMaterial(palleteInfo)){
+            
+        }else
+            return false;
         
         return true;
     }

@@ -5,9 +5,16 @@
  */
 package com.warehouse.dao.picking;
 
+import com.warehouse.cookie.SessionManager;
 import com.warehouse.entity.Order;
+import com.warehouse.entity.PalleteInfo;
 import com.warehouse.utility.HibernateUtil;
 import java.util.List;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import org.apache.struts2.interceptor.ServletRequestAware;
+import org.apache.struts2.interceptor.ServletResponseAware;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
@@ -16,6 +23,7 @@ import org.hibernate.Session;
  * @author pawel_000
  */
 public class OrderDao {
+    
     public boolean checkOrderById(int id){
         Session session = HibernateUtil.createSessionFactory().openSession();
         session.beginTransaction();
@@ -31,5 +39,22 @@ public class OrderDao {
         
         session.close();
         return false;
+    }
+    
+    public String getProducts(){
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+        String sql = " from Order o where o.id=:id";
+        Query query = session.createQuery(sql);
+        //query.setParameter("id", value);
+        List<Order> list = query.list();
+        
+        return list.get(0).getItems();
+    }
+    
+    public boolean checkOrderMaterial(PalleteInfo palleteInfo){
+        System.out.print(getProducts());
+        
+        return true;
     }
 }
