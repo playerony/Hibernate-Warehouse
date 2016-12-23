@@ -21,12 +21,12 @@ public class LoginAction extends AbstractUserAction implements ServletResponseAw
     
     @Override
     public void setServletResponse(HttpServletResponse hsr) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.servletResponse = hsr;
     }
 
     @Override
     public void setServletRequest(HttpServletRequest hsr) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.servletRequest = hsr;
     }
     
     @Override

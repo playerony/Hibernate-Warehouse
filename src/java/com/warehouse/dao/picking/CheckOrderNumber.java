@@ -5,13 +5,30 @@
  */
 package com.warehouse.dao.picking;
 
+import com.warehouse.cookie.SessionManager;
 import com.warehouse.other.Validate;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import org.apache.struts2.interceptor.ServletRequestAware;
+import org.apache.struts2.interceptor.ServletResponseAware;
 
 /**
  *
  * @author pawel_000
  */
-public class CheckOrderNumber extends AbstractPickingAction{
+public class CheckOrderNumber extends AbstractPickingAction implements ServletResponseAware, ServletRequestAware{
+    protected HttpServletResponse servletResponse;
+    protected HttpServletRequest servletRequest;
+    
+    @Override
+    public void setServletResponse(HttpServletResponse hsr) {
+        this.servletResponse = hsr;
+    }
+
+    @Override
+    public void setServletRequest(HttpServletRequest hsr) {
+        this.servletRequest = hsr;
+    }
 
     @Override
     public void validate() {
@@ -22,9 +39,11 @@ public class CheckOrderNumber extends AbstractPickingAction{
 
     @Override
     public String execute() {
-        if(orderDao.checkOrderById(order.getId()))
+        if(orderDao.checkOrderById(order.getId())){
+            servletResponse.addCookie(SessionManager.createCookie("orderId", String.valueOf(order.getId())));
+            
             return SUCCESS;
-        else{
+        }else{
             this.addActionError("I can't find this id");
             return INPUT;
         }
