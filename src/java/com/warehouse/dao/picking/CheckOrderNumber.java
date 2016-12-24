@@ -26,10 +26,10 @@ public class CheckOrderNumber extends AbstractPickingAction implements SessionAw
     public String execute() {
         if(orderDao.checkOrderById(order.getId())){
             session.put("orderID", String.valueOf(order.getId()));
+            session.put("items", orderDao.getProducts(order.getId()));
             
             return SUCCESS;
         }else{
-            this.addActionError("I can't find this id number");
             return INPUT;
         }
     }
