@@ -11,6 +11,7 @@ import com.warehouse.utility.HibernateUtil;
 import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 /**
  *
@@ -44,5 +45,17 @@ public class OrderDao {
         List<Order> list = query.list();
         
         return list.get(0).getItems();
+    }
+    
+    public void updateOrderValue(int id, String value){
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        Transaction tx = session.beginTransaction();
+        String sql = " update Order o set o.items=:value where o.id=:id";
+        Query query = session.createQuery(sql);
+        query.setParameter("value", value);
+        query.setParameter("id", id);
+        
+        query.executeUpdate();
+        tx.commit();
     }
 }
