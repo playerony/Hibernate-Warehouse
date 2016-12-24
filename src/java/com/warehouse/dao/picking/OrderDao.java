@@ -47,6 +47,17 @@ public class OrderDao {
         return list.get(0).getItems();
     }
     
+    public String getClientID(int orderID){
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+        String sql = " from Order o where o.client.id=:id";
+        Query query = session.createQuery(sql);
+        query.setParameter("id", orderID);
+        List<Order> list = query.list();
+        
+        return String.valueOf(list.get(0).getClient().getId());
+    }
+    
     public void updateOrderValue(int id, String value){
         Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction tx = session.beginTransaction();
