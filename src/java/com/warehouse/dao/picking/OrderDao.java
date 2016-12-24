@@ -35,19 +35,18 @@ public class OrderDao {
         return false;
     }
     
-    public String getProducts(){
+    public String getProducts(int id){
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
         String sql = " from Order o where o.id=:id";
         Query query = session.createQuery(sql);
-        //query.setParameter("id", value);
+        query.setParameter("id", id);
         List<Order> list = query.list();
         
         return list.get(0).getItems();
     }
     
     public boolean checkOrderMaterial(PalleteInfo palleteInfo){
-        System.out.print(getProducts());
         
         return true;
     }
