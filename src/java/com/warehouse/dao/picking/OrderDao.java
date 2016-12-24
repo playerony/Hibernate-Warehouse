@@ -45,9 +45,4 @@ public class OrderDao {
         
         return list.get(0).getItems();
     }
-    
-    public boolean checkOrderMaterial(PalleteInfo palleteInfo){
-        
-        return true;
-    }
 }
