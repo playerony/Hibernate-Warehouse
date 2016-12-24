@@ -11,28 +11,53 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import org.apache.struts2.interceptor.SessionAware;
 
 /**
  *
  * @author pawel_000
  */
-public class PickingDao implements SessionAware {
-    private Map<String, Object> session;
+public class PickingDao {
     private OrderDao orderDao;
     
     public PickingDao(){
         orderDao = new OrderDao();
     }
     
-    public boolean nextItemButtonAction(PalleteInfo palleteInfo, PalletsInMagazine palletsInMagazine){
+    public boolean nextItemButtonAction(PalleteInfo palleteInfo, PalletsInMagazine palletsInMagazine, Map<String, Object> session){
+        boolean res = false;
         String result = palleteInfo.getId() + "(" + palleteInfo.getAmount() + ")";
-        
         String phrase = (String) session.get("items");
-			
-        ArrayList<PalleteInfo> pallete = getPalleteInformations(phrase);
+        String orderPhrase = (String) session.get("order");
         
-        return true;
+        ArrayList<PalleteInfo> palleteItems = getPalleteInformations(phrase);
+        
+        PalleteInfo pal = null;
+        for(PalleteInfo p : palleteItems)
+            if(palleteInfo.getId() == p.getId()){
+                pal = p;
+                break;
+            }
+            
+        if(pal != null){
+            int value = pal.getAmount() - palleteInfo.getAmount();
+            pal.setAmount(value);
+		    	
+            if(value <= 0)
+                palleteItems.remove(pal);
+            
+            String phr = "";
+            phr = palleteItems.stream().filter((p) -> (p != null)).map((p) -> (p.getId() + "(" + p.getAmount() + ")" + ",")).reduce(phr, String::concat);   
+            session.put("items", phr);
+		    	
+            if(orderPhrase != null)
+                session.put("order", orderPhrase + "," + result);
+            else
+                session.put("order", result);
+		    	
+            res = true;
+        }
+        
+        return res;
     }
     
     public boolean finishButtonAction(){
@@ -66,17 +91,8 @@ public class PickingDao implements SessionAware {
                     id = null;
                 }
             }
-         }
+        }
 		
         return result;
-    }
-    
-    public Map<String, Object> getSession() {
-        return session;
-    }
-
-    @Override
-    public void setSession(Map<String, Object> map) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
