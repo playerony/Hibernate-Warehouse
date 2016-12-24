@@ -42,7 +42,7 @@ public class PickingDao {
             int value = pal.getAmount() - palleteInfo.getAmount();
             pal.setAmount(value);
 		    	
-            if(value <= 0)
+            if(value < 0)
                 palleteItems.remove(pal);
             
             String phr = "";

@@ -6,26 +6,46 @@
 package com.warehouse.dao.picking;
 
 import com.opensymphony.xwork2.ActionSupport;
+import java.util.Map;
+import org.apache.struts2.interceptor.SessionAware;
 
 /**
  *
  * @author pawel_000
  */
-public class PickingButtonAction extends ActionSupport {
+public class PickingButtonAction extends ActionSupport implements SessionAware {
+    private OrderDao orderDao = new OrderDao();
+    private Map<String, Object> session;
+    
     @Override
     public void validate() {
         
     }
     
     public String finishButtonAction(){
-        System.out.print("Finish");
+        orderDao.updateOrderValue(Integer.parseInt((String) session.get("orderID")), (String) session.get("items"));
         
-        return "admin";
+        session.put("items", null);
+        session.put("orderID", null);
+        session.put("order", null);
+        
+        return (String) session.get("rank");
     }
     
     public String backButtonAction(){
-        System.out.print("Back");
+        session.put("items", null);
+        session.put("orderId", null);
+        session.put("order", null);
         
-        return "admin";
+        return (String) session.get("rank");
+    }
+    
+    public Map<String, Object> getSession() {
+        return session;
+    }
+
+    @Override
+    public void setSession(Map<String, Object> map) {
+        this.session = map;
     }
 }

@@ -5,12 +5,16 @@
  */
 package com.warehouse.dao.picking;
 
+import java.util.Map;
+import org.apache.struts2.interceptor.SessionAware;
+
 /**
  *
  * @author pawel_000
  */
-public class PickingMenuAction extends AbstractPickingAction {
-    private PickingDao pickingDao = new PickingDao();
+public class PickingMenuAction extends AbstractPickingAction implements SessionAware {
+    private Map<String, Object> session;
+    private final PickingDao pickingDao = new PickingDao();
 
     @Override
     public void validate() {
@@ -29,12 +33,21 @@ public class PickingMenuAction extends AbstractPickingAction {
 
     @Override
     public String execute() {
-        if(pickingDao.nextItemButtonAction(palleteInfo, palletsInMagazine))
+        if(pickingDao.nextItemButtonAction(palleteInfo, palletsInMagazine, session)){
             return SUCCESS;
-        else{
+        }else{
             this.addActionError("Some problems by adding next item!");
             
             return INPUT;
         }
+    }
+    
+    public Map<String, Object> getSession() {
+        return session;
+    }
+
+    @Override
+    public void setSession(Map<String, Object> map) {
+        this.session = map;
     }
 }
