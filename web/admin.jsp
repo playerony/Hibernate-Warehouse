@@ -25,7 +25,7 @@
             <input type="submit" value="3. Picking">
         </form>
             
-        <form method="post" action="PackingCheckSession">
+        <form method="post" action="packingMenu.jsp">
             <input type="submit" value="4. Packing">
         </form>
 	
