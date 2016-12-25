@@ -13,8 +13,7 @@ import org.apache.struts2.interceptor.SessionAware;
  *
  * @author pawel_000
  */
-public class PickingButtonAction extends ActionSupport implements SessionAware {
-    private OrderDao orderDao = new OrderDao();
+public class PickingButtonAction extends AbstractPickingAction implements SessionAware {
     private Map<String, Object> session;
     
     @Override
@@ -22,8 +21,17 @@ public class PickingButtonAction extends ActionSupport implements SessionAware {
         
     }
     
+    @Override
+    public String execute() {
+        return SUCCESS;
+    }
+    
     public String finishButtonAction(){
         orderDao.updateOrderValue(Integer.parseInt((String) session.get("orderID")), (String) session.get("items"));
+        pickingDao.createPickingPallete(Integer.parseInt((String) session.get("orderID")),
+                                                            Integer.parseInt((String) session.get("userID")), 
+                                                            Integer.parseInt(orderDao.getClientID(Integer.parseInt((String) session.get("orderID")))), 
+                                                            (String) session.get("order"));
         
         session.put("items", null);
         session.put("orderID", null);

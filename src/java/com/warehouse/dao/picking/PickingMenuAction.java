@@ -14,7 +14,6 @@ import org.apache.struts2.interceptor.SessionAware;
  */
 public class PickingMenuAction extends AbstractPickingAction implements SessionAware {
     private Map<String, Object> session;
-    private final PickingDao pickingDao = new PickingDao();
 
     @Override
     public void validate() {
