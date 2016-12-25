@@ -7,21 +7,19 @@ package com.warehouse.dao.picking;
 
 import com.warehouse.entity.PalleteInfo;
 import com.warehouse.entity.PalletsInMagazine;
+import com.warehouse.entity.PalletsPicked;
+import com.warehouse.other.Validate;
+import com.warehouse.utility.HibernateUtil;
 import java.util.ArrayList;
 import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import org.hibernate.Session;
 
 /**
  *
  * @author pawel_000
  */
 public class PickingDao {
-    private OrderDao orderDao;
-    
-    public PickingDao(){
-        orderDao = new OrderDao();
-    }
+    private OrderDao orderDao = new OrderDao();
     
     public boolean nextItemButtonAction(PalleteInfo palleteInfo, PalletsInMagazine palletsInMagazine, Map<String, Object> session){
         boolean res = false;
@@ -29,7 +27,7 @@ public class PickingDao {
         String phrase = (String) session.get("items");
         String orderPhrase = (String) session.get("order");
         
-        ArrayList<PalleteInfo> palleteItems = getPalleteInformations(phrase);
+        ArrayList<PalleteInfo> palleteItems = Validate.getPalleteInformations(phrase);
         
         PalleteInfo pal = null;
         for(PalleteInfo p : palleteItems)
@@ -60,39 +58,16 @@ public class PickingDao {
         return res;
     }
     
-    public boolean finishButtonAction(){
+    public boolean createPickingPallete(int id, int workerID, int clientID, String products){
+        Session session = HibernateUtil.createSessionFactory().openSession();
+        session.beginTransaction();
         
+        PalletsPicked palletsPicked = new PalletsPicked(id, workerID, clientID, products);
+        session.save(palletsPicked);
+        session.getTransaction().commit();
+        
+        HibernateUtil.shutdown();
         
         return true;
-    }
-    
-    public ArrayList<PalleteInfo> getPalleteInformations(String phrase){
-        ArrayList<PalleteInfo> result = new ArrayList<>();
-		
-        if(phrase != null){
-            String id = null;
-            String amount = null;
-
-            Pattern p = Pattern.compile("-?\\d+");
-            Matcher m = p.matcher(phrase);
-            int i = 1;
-
-            while (m.find()) {
-                if(i%2 == 0)
-                    amount = m.group();
-                else
-                    id = m.group();
-
-                i++;
-
-                if(id != null && amount != null){
-                    result.add(new PalleteInfo(Integer.parseInt(id), Integer.parseInt(amount)));
-                    amount = null;
-                    id = null;
-                }
-            }
-        }
-		
-        return result;
     }
 }
