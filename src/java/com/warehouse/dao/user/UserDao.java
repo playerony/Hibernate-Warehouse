@@ -26,16 +26,16 @@ class UserDao {
         List<User> list = query.list();
         
         if (list.size() > 0) {
-            session.close();
+            HibernateUtil.shutdown();
             return true;
         }
         
-        session.close();
+        HibernateUtil.shutdown();
         return false;
     }
     
     public boolean addWorker(int id, String firstname, String lastname, String login, String password, String place, String rank){
-        Session session = HibernateUtil.getSessionFactory().openSession();
+        Session session = HibernateUtil.createSessionFactory().openSession();
         session.beginTransaction();
         
         User user = new User(id, firstname, lastname, login, password, place, rank);
@@ -43,7 +43,7 @@ class UserDao {
         session.save(user);
         session.getTransaction().commit();
         
-        session.close();  
+        HibernateUtil.shutdown();
         
         return true;
     }
@@ -51,7 +51,7 @@ class UserDao {
     public boolean deleteWorker(String firstname, String lastname){
         boolean result = false;
         
-        Session session = HibernateUtil.getSessionFactory().openSession();
+        Session session = HibernateUtil.createSessionFactory().openSession();
         session.beginTransaction();
         
         String sql = " delete User where firstname=:name and lastname=:surname";
@@ -59,19 +59,20 @@ class UserDao {
         query.setParameter("name", firstname);
         query.setParameter("surname", lastname);
         int value = query.executeUpdate();
+        
         if(value==0)
             result = false;
         else
             result = true;
         
         session.getTransaction().commit(); 
-        session.close();
+        HibernateUtil.shutdown();
         
         return result;
     }
     
     public String getUserRank(String name, String password){
-        Session session = HibernateUtil.getSessionFactory().openSession();
+        Session session = HibernateUtil.createSessionFactory().openSession();
         session.beginTransaction();
         String sql = " from User u where u.login=:name and u.password=:pass";
         Query query = session.createQuery(sql);
@@ -83,13 +84,15 @@ class UserDao {
     }
     
     public String getUserID(String name, String password){
-        Session session = HibernateUtil.getSessionFactory().openSession();
+        Session session = HibernateUtil.createSessionFactory().openSession();
         session.beginTransaction();
         String sql = " from User u where u.login=:name and u.password=:pass";
         Query query = session.createQuery(sql);
         query.setParameter("name", name);
         query.setParameter("pass", password);
         List<User> list = query.list();
+        
+        HibernateUtil.shutdown();
         
         return String.valueOf(list.get(0).getId());
     }

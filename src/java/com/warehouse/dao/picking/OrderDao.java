@@ -6,7 +6,6 @@
 package com.warehouse.dao.picking;
 
 import com.warehouse.entity.Order;
-import com.warehouse.entity.PalleteInfo;
 import com.warehouse.utility.HibernateUtil;
 import java.util.List;
 import org.hibernate.Query;
@@ -22,45 +21,53 @@ public class OrderDao {
     public boolean checkOrderById(int id){
         Session session = HibernateUtil.createSessionFactory().openSession();
         session.beginTransaction();
+        
         String sql = "from Order o where o.id=:orderId";
         Query query = session.createQuery(sql);
         query.setParameter("orderId", id);
         List<Order> list = query.list();
         
         if (list.size() > 0) {
-            session.close();
+            HibernateUtil.shutdown();
             return true;
         }
         
-        session.close();
+        HibernateUtil.shutdown();
         return false;
     }
     
     public String getProducts(int id){
-        Session session = HibernateUtil.getSessionFactory().openSession();
+        Session session = HibernateUtil.createSessionFactory().openSession();
         session.beginTransaction();
+        
         String sql = " from Order o where o.id=:id";
         Query query = session.createQuery(sql);
         query.setParameter("id", id);
         List<Order> list = query.list();
         
+        HibernateUtil.shutdown();
+        
         return list.get(0).getItems();
     }
     
     public String getClientID(int orderID){
-        Session session = HibernateUtil.getSessionFactory().openSession();
+        Session session = HibernateUtil.createSessionFactory().openSession();
         session.beginTransaction();
+        
         String sql = " from Order o where o.client.id=:id";
         Query query = session.createQuery(sql);
         query.setParameter("id", orderID);
         List<Order> list = query.list();
         
+        HibernateUtil.shutdown();
+        
         return String.valueOf(list.get(0).getClient().getId());
     }
     
     public void updateOrderValue(int id, String value){
-        Session session = HibernateUtil.getSessionFactory().openSession();
+        Session session = HibernateUtil.createSessionFactory().openSession();
         Transaction tx = session.beginTransaction();
+        
         String sql = " update Order o set o.items=:value where o.id=:id";
         Query query = session.createQuery(sql);
         query.setParameter("value", value);
@@ -68,5 +75,7 @@ public class OrderDao {
         
         query.executeUpdate();
         tx.commit();
+        
+        HibernateUtil.shutdown();
     }
 }
