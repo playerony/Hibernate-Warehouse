@@ -57,20 +57,20 @@
         </action>
         
         
-        <action name="packMenu" class="com.warehouse.dao.picking.PickingMenuAction">
+        <action name="packMenu" class="com.warehouse.dao.packing.PackingMenuAction">
             <result name="success">/packingMenu.jsp</result>
             <result name="admin">/admin.jsp</result>
             <result name="worker">/worker.jsp</result>
             <result name="input">/packingMenu.jsp</result>
         </action>
         
-        <action name="finishPack" class="com.warehouse.dao.picking.PickingButtonAction" method="finishButtonAction">
+        <action name="finishPack" class="com.warehouse.dao.packing.PackingButtonAction" method="finishButtonAction">
             <result name="admin">/admin.jsp</result>
             <result name="worker">/worker.jsp</result>
             <result name="input">/packingMenu.jsp</result>
         </action>
         
-        <action name="backPack" class="com.warehouse.dao.picking.PickingButtonAction" method="backButtonAction">
+        <action name="backPack" class="com.warehouse.dao.packing.PackingButtonAction" method="backButtonAction">
             <result name="admin">/admin.jsp</result>
             <result name="worker">/worker.jsp</result>
         </action>
