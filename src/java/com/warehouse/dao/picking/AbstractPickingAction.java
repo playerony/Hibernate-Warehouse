@@ -22,6 +22,7 @@ public abstract class AbstractPickingAction extends ActionSupport{
     protected PalletsInMagazine palletsInMagazine;
     protected ClientDao clientDao = new ClientDao();
     protected OrderDao orderDao = new OrderDao();
+    protected PickingDao pickingDao = new PickingDao();
     
     @Override
      public abstract void validate();

@@ -53,5 +53,6 @@ Contributor(s):
     <mapping resource="com/warehouse/mapping/user.hbm.xml"/>
     <mapping resource="com/warehouse/mapping/client.hbm.xml"/>
     <mapping resource="com/warehouse/mapping/order.hbm.xml"/>
+    <mapping resource="com/warehouse/mapping/picking.hbm.xml"/>
   </session-factory>
 </hibernate-configuration>
