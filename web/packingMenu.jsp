@@ -14,11 +14,11 @@
     </head>
     <body>
         <s:form action="pickMenu">
+            <s:textfield name="palletsPicked.id" label="Pallete id"/>
             <s:textfield name="palleteInfo.id" label="Product id"/>
             <s:textfield name="palleteInfo.amount" label="Amount"/>
-            <s:textfield name="palletsInMagazine.location" label="Location"/>
             
-            <s:submit value="Add another item"/>
+            <s:submit value="Pack"/>
         </s:form>
         
         <s:form action="finishPack">

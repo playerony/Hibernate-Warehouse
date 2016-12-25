@@ -5,7 +5,7 @@
  */
 package com.warehouse.dao.user;
 
-import com.warehouse.other.Validate;
+import com.warehouse.utility.Validate;
 
 /**
  *

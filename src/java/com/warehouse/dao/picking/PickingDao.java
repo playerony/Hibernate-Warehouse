@@ -8,7 +8,7 @@ package com.warehouse.dao.picking;
 import com.warehouse.entity.PalleteInfo;
 import com.warehouse.entity.PalletsInMagazine;
 import com.warehouse.entity.PalletsPicked;
-import com.warehouse.other.Validate;
+import com.warehouse.utility.Validate;
 import com.warehouse.utility.HibernateUtil;
 import java.util.ArrayList;
 import java.util.Map;
