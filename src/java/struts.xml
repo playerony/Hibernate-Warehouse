@@ -37,6 +37,7 @@
             <result name="input">/pickingCheckOrderNumber.jsp</result>
         </action>
         
+        
         <action name="pickMenu" class="com.warehouse.dao.picking.PickingMenuAction">
             <result name="success">/pickingMenu.jsp</result>
             <result name="admin">/admin.jsp</result>
@@ -51,6 +52,25 @@
         </action>
         
         <action name="backPick" class="com.warehouse.dao.picking.PickingButtonAction" method="backButtonAction">
+            <result name="admin">/admin.jsp</result>
+            <result name="worker">/worker.jsp</result>
+        </action>
+        
+        
+        <action name="packMenu" class="com.warehouse.dao.picking.PickingMenuAction">
+            <result name="success">/packingMenu.jsp</result>
+            <result name="admin">/admin.jsp</result>
+            <result name="worker">/worker.jsp</result>
+            <result name="input">/packingMenu.jsp</result>
+        </action>
+        
+        <action name="finishPack" class="com.warehouse.dao.picking.PickingButtonAction" method="finishButtonAction">
+            <result name="admin">/admin.jsp</result>
+            <result name="worker">/worker.jsp</result>
+            <result name="input">/packingMenu.jsp</result>
+        </action>
+        
+        <action name="backPack" class="com.warehouse.dao.picking.PickingButtonAction" method="backButtonAction">
             <result name="admin">/admin.jsp</result>
             <result name="worker">/worker.jsp</result>
         </action>
