@@ -10,6 +10,7 @@
             <interceptor name="globalInterceptor" class="com.warehouse.interceptor.GlobalInterceptor" />
             <interceptor-stack name="globalStack">
                 <interceptor-ref name="globalInterceptor"/>
+                <interceptor-ref name="session"/>
                 <interceptor-ref name="defaultStack"/> 
             </interceptor-stack>
         </interceptors>

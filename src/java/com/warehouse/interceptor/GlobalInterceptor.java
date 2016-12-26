@@ -28,7 +28,9 @@ public class GlobalInterceptor implements Interceptor{
 
     @Override
     public String intercept(ActionInvocation invocation) throws Exception {
-        session = invocation.getInvocationContext().getSession();
+        Map<String,Object> session = invocation.getInvocationContext().getSession();
+        if(session.isEmpty())
+            return "session";
         
         return invocation.invoke();
     }
