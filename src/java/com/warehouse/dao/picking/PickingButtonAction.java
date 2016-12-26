@@ -42,7 +42,7 @@ public class PickingButtonAction extends AbstractPickingAction implements Sessio
     
     public String backButtonAction(){
         session.put("items", null);
-        session.put("orderId", null);
+        session.put("orderID", null);
         session.put("order", null);
         session.put("check", null);
         
