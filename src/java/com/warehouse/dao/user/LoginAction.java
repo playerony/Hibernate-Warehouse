@@ -34,6 +34,7 @@ public class LoginAction extends AbstractUserAction implements SessionAware {
             
             session.put("userID", dao.getUserID(user.getLogin(), user.getPassword()));
             session.put("rank", rank);
+            session.put("check", null);
           
             return rank;
         } else {

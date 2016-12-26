@@ -35,6 +35,7 @@ public class PickingButtonAction extends AbstractPickingAction implements Sessio
         session.put("items", null);
         session.put("orderID", null);
         session.put("order", null);
+        session.put("check", null);
         
         return (String) session.get("rank");
     }
@@ -43,6 +44,7 @@ public class PickingButtonAction extends AbstractPickingAction implements Sessio
         session.put("items", null);
         session.put("orderId", null);
         session.put("order", null);
+        session.put("check", null);
         
         return (String) session.get("rank");
     }
