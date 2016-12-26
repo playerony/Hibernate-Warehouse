@@ -35,32 +35,54 @@ public class PackingDao {
     }
     
     public boolean packButtonAction(PalletsPicked palletsPicked, PalleteInfo palleteInfo, Map<String, Object> session){
-        String products = getProducts(palletsPicked.getId());
+        boolean res = false;
+        
+        String products = null;
+        String result = palleteInfo.getId() + "(" + palleteInfo.getAmount() + ")";
+        String orderPhrase = (String) session.get("order");
+        
+        if((String) session.get("check") == null){
+            session.put("items", getProducts(palletsPicked.getId()));
+            session.put("check", "true");
+            products = getProducts(palletsPicked.getId());
+        }else{
+            products = (String) session.get("items");
+        }
 		
         if(products != null){
-            ArrayList<PalleteInfo> palleteInformations = Validate.getPalleteInformations(products);
+            ArrayList<PalleteInfo> palleteItems = Validate.getPalleteInformations((String) session.get("items"));
 			
-            PalleteInfo pall = null;
-            for(PalleteInfo p : palleteInformations){
-                if(p.getId() == palleteInfo.getId() &&
+            PalleteInfo pal = null;
+            for(PalleteInfo p : palleteItems)
+                if(palleteInfo.getId() == p.getId() &&
                     p.getAmount() >= palleteInfo.getAmount()){
-                    p.setAmount(p.getAmount() - palleteInfo.getAmount());
-
-                    if(p.getAmount() == 0)
-                        pall = p;
-
-                    if(pall != null)
-                            palleteInformations.remove(pall);
-
-                  // add item to exist pallete
-                  // take material from pallete
-
-                    return true;
+                    pal = p;
+                    break;
                 }
-            }
-        } else 
-            return false;
+                    
+                if(pal != null){
+                    int value = pal.getAmount() - palleteInfo.getAmount();
+                    pal.setAmount(value);
+
+                    if(value < 0)
+                        palleteItems.remove(pal);
+
+                    String phr = "";
+                    phr = palleteItems.stream().filter((p) -> (p != null)).map((p) -> (p.getId() + "(" + p.getAmount() + ")" + ",")).reduce(phr, String::concat);   
+                    session.put("items", phr);
+
+                    if(orderPhrase != null)
+                        session.put("order", orderPhrase + "," + result);
+                    else
+                        session.put("order", result);
+                    
+                    System.out.print(session.get("items"));
+                    System.out.print(session.get("order"));
+
+                        res = true;
+                }
+        } 
         
-        return false;
-    }
+        return res;
+}
 }
