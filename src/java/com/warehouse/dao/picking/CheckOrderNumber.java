@@ -20,6 +20,10 @@ public class CheckOrderNumber extends AbstractPickingAction implements SessionAw
         if(String.valueOf(order.getId()) == null) {
             this.addActionError("It's not a number!");
         }
+        
+        if(order.getId() <= (0)) {
+            this.addActionError("Wrong number");
+        }
     }
 
     @Override
