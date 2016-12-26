@@ -20,7 +20,6 @@ public abstract class AbstractPickingAction extends ActionSupport{
     protected Client client;
     protected PalleteInfo palleteInfo;
     protected PalletsInMagazine palletsInMagazine;
-    protected ClientDao clientDao = new ClientDao();
     protected OrderDao orderDao = new OrderDao();
     protected PickingDao pickingDao = new PickingDao();
     
