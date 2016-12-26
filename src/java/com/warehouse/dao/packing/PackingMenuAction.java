@@ -28,7 +28,7 @@ public class PackingMenuAction extends AbstractPackingAction implements SessionA
 
     @Override
     public String execute() {
-        if(packingDao.packButtonAction()){
+        if(packingDao.packButtonAction(palletsPicked, palleteInfo, session)){
             return SUCCESS;
         }else{
             this.addActionError("Some problems by packing item!");

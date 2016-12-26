@@ -5,9 +5,11 @@
  */
 package com.warehouse.dao.packing;
 
+import com.warehouse.entity.PalleteInfo;
 import com.warehouse.entity.PalletsPicked;
 import com.warehouse.utility.HibernateUtil;
 import java.util.List;
+import java.util.Map;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
@@ -28,5 +30,11 @@ public class PackingDao {
         HibernateUtil.shutdown();
         
         return list.get(0).getProducts();
+    }
+    
+    public boolean packButtonAction(PalletsPicked palletsPicked, PalleteInfo palleteInfo, Map<String, Object> session){
+        
+        
+        return true;
     }
 }
