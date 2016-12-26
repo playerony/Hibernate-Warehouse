@@ -5,11 +5,15 @@
  */
 package com.warehouse.dao.packing;
 
+import java.util.Map;
+import org.apache.struts2.interceptor.SessionAware;
+
 /**
  *
  * @author pawel_000
  */
-public class PackingMenuAction extends AbstractPackingAction{
+public class PackingMenuAction extends AbstractPackingAction implements SessionAware{
+    private Map<String, Object> session;
 
     @Override
     public void validate() {
@@ -24,9 +28,21 @@ public class PackingMenuAction extends AbstractPackingAction{
 
     @Override
     public String execute() {
-        
-        
-        return SUCCESS;
+        if(packingDao.packButtonAction()){
+            return SUCCESS;
+        }else{
+            this.addActionError("Some problems by packing item!");
+            
+            return INPUT;
+        }
     }
     
+    public Map<String, Object> getSession() {
+        return session;
+    }
+
+    @Override
+    public void setSession(Map<String, Object> map) {
+        this.session = map;
+    }
 }
