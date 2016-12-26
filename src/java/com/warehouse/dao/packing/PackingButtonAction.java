@@ -5,10 +5,42 @@
  */
 package com.warehouse.dao.packing;
 
+import java.util.Map;
+import org.apache.struts2.interceptor.SessionAware;
+
 /**
  *
  * @author pawel_000
  */
-public class PackingButtonAction {
+public class PackingButtonAction extends AbstractPackingAction implements SessionAware{
+    private Map<String, Object> session;
+
+    @Override
+    public void validate() {
+        
+    }
+
+    @Override
+    public String execute() {
+        return SUCCESS;
+    }
     
+    public String finishButtonAction(){
+        
+        return (String) session.get("rank");
+    }
+    
+    public String backButtonAction(){
+        
+        return (String) session.get("rank");
+    }
+    
+    public Map<String, Object> getSession() {
+        return session;
+    }
+
+    @Override
+    public void setSession(Map<String, Object> map) {
+        this.session = map;
+    }
 }
