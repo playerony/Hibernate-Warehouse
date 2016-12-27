@@ -54,8 +54,7 @@ public class PackingDao {
 			
             PalleteInfo pal = null;
             for(PalleteInfo p : palleteItems)
-                if(palleteInfo.getId() == p.getId() &&
-                    p.getAmount() >= palleteInfo.getAmount()){
+                if(palleteInfo.getId() == p.getId()){
                     pal = p;
                     break;
                 }

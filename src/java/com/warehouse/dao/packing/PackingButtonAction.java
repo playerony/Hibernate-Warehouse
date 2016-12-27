@@ -27,6 +27,11 @@ public class PackingButtonAction extends AbstractPackingAction implements Sessio
     
     public String finishButtonAction(){
         
+        session.put("items", null);
+        session.put("orderID", null);
+        session.put("order", null);
+        session.put("check", null);
+        
         return (String) session.get("rank");
     }
     

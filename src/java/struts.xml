@@ -10,13 +10,13 @@
             <interceptor name="globalInterceptor" class="com.warehouse.interceptor.GlobalInterceptor" />
             <interceptor-stack name="globalStack">
                 <interceptor-ref name="globalInterceptor"/>
-                <interceptor-ref name="session"/>
                 <interceptor-ref name="defaultStack"/> 
             </interceptor-stack>
         </interceptors>
         
+        <default-interceptor-ref name="globalStack" />
+        
         <action name="login" class="com.warehouse.dao.user.LoginAction">
-            <interceptor-ref name="globalStack" />
             <result name="admin">/admin.jsp</result>
             <result name="worker">/worker.jsp</result>
             <result name="input">/login.jsp</result>
