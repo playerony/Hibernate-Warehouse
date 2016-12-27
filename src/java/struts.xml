@@ -24,6 +24,12 @@
             <result name="error">/error403.jsp</result>
         </action>
         
+        <action name="logout" class="com.warehouse.dao.user.LogoutAction">
+            <result name="success">/login.jsp</result>
+            <result name="session">/login.jsp</result>
+        </action>
+        
+        
         <action name="add" class="com.warehouse.dao.user.AddWorkerAction">
             <result name="success">/admin.jsp</result>
             <result name="input">/addWorker.jsp</result>
