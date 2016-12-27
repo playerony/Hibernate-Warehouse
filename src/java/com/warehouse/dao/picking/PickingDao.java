@@ -11,7 +11,9 @@ import com.warehouse.entity.PalletsPicked;
 import com.warehouse.utility.Validate;
 import com.warehouse.utility.HibernateUtil;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
+import org.hibernate.Query;
 import org.hibernate.Session;
 
 /**
@@ -19,8 +21,6 @@ import org.hibernate.Session;
  * @author pawel_000
  */
 public class PickingDao {
-    private OrderDao orderDao = new OrderDao();
-    
     public boolean nextItemButtonAction(PalleteInfo palleteInfo, PalletsInMagazine palletsInMagazine, Map<String, Object> session){
         boolean res = false;
         String result = palleteInfo.getId() + "(" + palleteInfo.getAmount() + ")";
@@ -69,5 +69,19 @@ public class PickingDao {
         HibernateUtil.shutdown();
         
         return true;
+    }
+    
+    public String getClientID(int orderID){
+        Session session = HibernateUtil.createSessionFactory().openSession();
+        session.beginTransaction();
+        
+        String sql = " from PalletsPicked p where p..id=:id";
+        Query query = session.createQuery(sql);
+        query.setParameter("id", orderID);
+        List<PalletsPicked> list = query.list();
+        
+        HibernateUtil.shutdown();
+        
+        return String.valueOf(list.get(0).getClientID());
     }
 }
