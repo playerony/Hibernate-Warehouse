@@ -6,10 +6,12 @@
 package com.warehouse.dao.packing;
 
 import com.warehouse.entity.PalleteInfo;
+import com.warehouse.entity.PalletsPacked;
 import com.warehouse.entity.PalletsPicked;
 import com.warehouse.utility.HibernateUtil;
 import com.warehouse.utility.Validate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import org.hibernate.Query;
@@ -44,6 +46,7 @@ public class PackingDao {
         if((String) session.get("check") == null){
             session.put("items", getProducts(palletsPicked.getId()));
             session.put("check", "true");
+            session.put("orderID", palletsPicked.getId());
             products = getProducts(palletsPicked.getId());
         }else{
             products = (String) session.get("items");
@@ -83,5 +86,18 @@ public class PackingDao {
         } 
         
         return res;
-}
+    }
+    
+    public boolean createPackingPallete(int id, int workerID, int clientID, String products, Date date, String type){
+        Session session = HibernateUtil.createSessionFactory().openSession();
+        session.beginTransaction();
+        
+        PalletsPacked palletsPacked = new PalletsPacked(id, workerID, clientID, products, date, type);
+        session.save(palletsPacked);
+        session.getTransaction().commit();
+        
+        HibernateUtil.shutdown();
+        
+        return true;
+    }
 }
