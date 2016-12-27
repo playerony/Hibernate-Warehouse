@@ -49,6 +49,10 @@ public class AddWorkerAction extends AbstractUserAction {
         if(user.getLastname().equals(user.getFirstname())){
             addActionError("Firstname = Lastname");
         }
+        
+        if (userDao.findUserByLogin(user.getLogin())) {
+            addActionError("This login exist in database!!!");
+        }
     }
      
     @Override
