@@ -19,5 +19,9 @@
 
             <s:submit value="Delete Worker"/>
         </s:form>
+        
+        <s:form action="backUser">
+            <s:submit value="Back"/>
+        </s:form>
     </body>
 </html>
