@@ -104,7 +104,7 @@ class UserDao {
             e.printStackTrace();
         }
         
-        return null;
+        return "error";
     }
     
     public String getUserID(final String name, final String password){

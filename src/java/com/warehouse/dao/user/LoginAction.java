@@ -43,7 +43,10 @@ public class LoginAction extends AbstractUserAction implements SessionAware {
         session.put("order", null);
         session.put("check", null);
 
-        return rank;
+        if(!session.get("userID").equals("error"))
+            return rank;
+        else
+            return "error";
     }
 
     public Map<String, Object> getSession() {
