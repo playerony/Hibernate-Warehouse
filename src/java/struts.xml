@@ -33,7 +33,6 @@
         <action name="delete" class="com.warehouse.dao.user.DeleteWorkerAction">
             <result name="success">/admin.jsp</result>
             <result name="input">/deleteWorker.jsp</result>
-            <result name="back">/admin.jsp</result>
             <result name="session">/error403.jsp</result>
         </action>
         

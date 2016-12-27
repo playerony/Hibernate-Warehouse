@@ -16,27 +16,28 @@ public class DeleteWorkerAction extends AbstractUserAction {
     @Override
     public void validate() {
         if (user.getFirstname().length() == (0)) {
-            this.addFieldError("user.firstname", "Firstname is required");
+            addActionError("Firstname is required!");
         }
         
         if (!Validate.checkNumbersInString(user.getFirstname())) {
-            this.addFieldError("user.firstname", "Wrong firstname");
+            addActionError("Wrong firstname");
         }
         
         if (user.getLastname().length() == (0)) {
-            this.addFieldError("user.lastname", "Lastname is required");
+            addActionError("Lastname is required!");
         }
         
         if (!Validate.checkNumbersInString(user.getLastname())) {
-            this.addFieldError("user.lastname", "Wrong lastname");
+            addActionError("Wrong lastname!");
         }
     }
 
     @Override
     public String execute() {
-        dao.deleteWorker(user.getFirstname(), user.getLastname());
+        if(userDao.deleteWorker(user.getFirstname(), user.getLastname()))
+            return SUCCESS;
         
-        return SUCCESS;
+        return INPUT;
     }
     
 }

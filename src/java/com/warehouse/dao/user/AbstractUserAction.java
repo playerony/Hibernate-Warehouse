@@ -14,7 +14,7 @@ import com.warehouse.entity.User;
  */
 public abstract class AbstractUserAction extends ActionSupport {
     protected static final long serialVersionUID = 1L;    
-    protected UserDao dao = new UserDao();
+    protected UserDao userDao = new UserDao();
     protected User user;
     
     @Override
