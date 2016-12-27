@@ -13,7 +13,6 @@ import org.apache.struts2.interceptor.SessionAware;
  * @author pawel_000
  */
 public class LoginAction extends AbstractUserAction implements SessionAware {
-    private String rank;
     private Map<String, Object> session;
     
     @Override
@@ -34,6 +33,9 @@ public class LoginAction extends AbstractUserAction implements SessionAware {
             
             session.put("userID", dao.getUserID(user.getLogin(), user.getPassword()));
             session.put("rank", rank);
+            session.put("items", null);
+            session.put("orderID", null);
+            session.put("order", null);
             session.put("check", null);
           
             return rank;
@@ -43,16 +45,8 @@ public class LoginAction extends AbstractUserAction implements SessionAware {
         return INPUT;
     }
 
-    public String getRank() {
-        return rank;
-    }
-
     public Map<String, Object> getSession() {
         return session;
-    }
-
-    public void setRank(String rank) {
-        this.rank = rank;
     }
 
     @Override

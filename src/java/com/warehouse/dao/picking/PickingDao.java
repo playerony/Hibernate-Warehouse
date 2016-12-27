@@ -41,7 +41,7 @@ public class PickingDao {
             int value = pal.getAmount() - palleteInfo.getAmount();
             pal.setAmount(value);
 		    	
-            if(value < 0)
+            if(value <= 0)
                 palleteItems.remove(pal);
             
             String phr = "";
@@ -76,7 +76,7 @@ public class PickingDao {
         Session session = HibernateUtil.createSessionFactory().openSession();
         session.beginTransaction();
         
-        String sql = " from PalletsPicked p where p..id=:id";
+        String sql = " from PalletsPicked p where p.id=:id";
         Query query = session.createQuery(sql);
         query.setParameter("id", orderID);
         List<PalletsPicked> list = query.list();
