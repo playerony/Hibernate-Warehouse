@@ -40,6 +40,28 @@ class UserDao {
         return false;
     }
     
+    public boolean findUserByLogin(final String login) {
+        try{
+            Session session = HibernateUtil.createSessionFactory().openSession();
+            session.beginTransaction();
+            String sql = " from User u where u.login=:name";
+            Query query = session.createQuery(sql);
+            query.setParameter("name", login);
+            List<User> list = query.list();
+
+            if (list.size() > 0) {
+                HibernateUtil.shutdown();
+                return true;
+            }
+
+            HibernateUtil.shutdown();
+        }catch(HibernateException e){
+            e.printStackTrace();
+        }
+        
+        return false;
+    }
+    
     public boolean addWorker(final int id, final String firstname, final String lastname, final String login, 
                                                    final String password, final String place, final String rank){
         try{
