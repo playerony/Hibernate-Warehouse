@@ -13,6 +13,12 @@
         <title>Login panel</title>
     </head>
     <body>
+        <s:if test="hasActionErrors()">
+            <div class="errors">
+                <s:actionerror/>
+            </div>
+         </s:if>
+        
         <s:form action="login">
             <s:textfield name="user.login" label="Login"/>
             <s:password name="user.password" label="Password"/>
