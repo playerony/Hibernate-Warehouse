@@ -7,6 +7,7 @@ package com.warehouse.interceptor;
 
 import com.opensymphony.xwork2.ActionInvocation;
 import com.opensymphony.xwork2.interceptor.Interceptor;
+import com.warehouse.dao.user.LoginAction;
 import java.util.Map;
 
 /**
@@ -29,8 +30,14 @@ public class GlobalInterceptor implements Interceptor{
     @Override
     public String intercept(ActionInvocation invocation) throws Exception {
         Map<String,Object> session = invocation.getInvocationContext().getSession();
-        //if(session.isEmpty())
-          //  return "session";
+        
+        Object action = invocation.getAction();
+
+        if (action instanceof LoginAction) 
+            return invocation.invoke();
+        
+        if(session.isEmpty())
+            return "session";
         
         return invocation.invoke();
     }
