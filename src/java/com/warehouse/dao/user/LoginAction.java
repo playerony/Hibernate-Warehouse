@@ -18,31 +18,32 @@ public class LoginAction extends AbstractUserAction implements SessionAware {
     @Override
     public void validate() {
         if (user.getLogin().length() == (0)) {
-            this.addFieldError("user.login", "Name is required");
+            addActionError("Login is required!");
         }
         
         if (user.getPassword().length() == (0)) {
-            this.addFieldError("user.password", "Password is required");
+            addActionError("Password is required!");
+        }
+        
+        if (!dao.find(user.getLogin(), user.getPassword())) {
+            addActionError("Wrong login or password!");
         }
     }
  
     @Override
     public String execute() {
-        if (dao.find(user.getLogin(), user.getPassword())) {
-            String rank = dao.getUserRank(user.getLogin(), user.getPassword());
-            
-            session.put("userID", dao.getUserID(user.getLogin(), user.getPassword()));
-            session.put("rank", rank);
-            session.put("items", null);
-            session.put("orderID", null);
-            session.put("order", null);
-            session.put("check", null);
-          
-            return rank;
-        } else {
-            this.addActionError("Invalid username and password");
-        }
-        return INPUT;
+        String rank = dao.getUserRank(user.getLogin(), user.getPassword());
+
+        session.put("userID", dao.getUserID(user.getLogin(), user.getPassword()));
+        session.put("rank", rank);
+        
+        // Reset cache values
+        session.put("items", null);
+        session.put("orderID", null);
+        session.put("order", null);
+        session.put("check", null);
+
+        return rank;
     }
 
     public Map<String, Object> getSession() {
