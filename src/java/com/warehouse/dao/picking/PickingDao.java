@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.Map;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 /**
  *
@@ -83,5 +84,20 @@ public class PickingDao {
         HibernateUtil.shutdown();
         
         return String.valueOf(list.get(0).getClientID());
+    }
+    
+    public void updatePickedPallete(int id, String value){
+        Session session = HibernateUtil.createSessionFactory().openSession();
+        Transaction tx = session.beginTransaction();
+        
+        String sql = " update PalletsPicked p set p.products=:value where p.id=:id";
+        Query query = session.createQuery(sql);
+        query.setParameter("value", value);
+        query.setParameter("id", id);
+        
+        query.executeUpdate();
+        tx.commit();
+        
+        HibernateUtil.shutdown();
     }
 }
