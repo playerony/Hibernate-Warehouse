@@ -13,6 +13,12 @@
         <title>Delete Worker Panel</title>
     </head>
     <body>
+        <s:if test="hasActionErrors()">
+            <div class="errors">
+                <s:actionerror/>
+            </div>
+         </s:if>
+        
         <s:form action="delete">
             <s:textfield name="user.firstname" label="Firstname"/>
             <s:textfield name="user.lastname" label="Lastname"/>
