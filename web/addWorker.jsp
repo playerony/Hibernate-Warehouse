@@ -20,8 +20,8 @@
          </s:if>
         
         <s:form action="add">
-            <s:textfield name="user.login" label="Login"/>
-            <s:password name="user.password" label="Password"/>
+            <s:textfield name="user.login" label="Login(Max 10 length)"/>
+            <s:password name="user.password" label="Password(Max 10 length)"/>
             <s:textfield name="user.firstname" label="Firstname"/>
             <s:textfield name="user.lastname" label="Lastname"/>
             <s:select name="user.place" list="{'Gliwice', 'Zabrze'}" emptyOption="false" label="Select place"/>

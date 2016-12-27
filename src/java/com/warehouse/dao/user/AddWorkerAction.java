@@ -15,37 +15,47 @@ public class AddWorkerAction extends AbstractUserAction {
     @Override
      public void validate() {
         if (user.getLogin().length() == (0)) {
-            this.addFieldError("user.login", "Name is required");
+            addActionError("Login is required");
+        }
+        
+        if (user.getLogin().length() > (10)) {
+            addActionError("Login is too long");
         }
         
         if (user.getPassword().length() == (0)) {
-            this.addFieldError("user.password", "Password is required");
+            addActionError("Password is required");
+        }
+        
+        if (user.getPassword().length() > (10)) {
+            addActionError("Password is too long");
         }
         
         if (user.getFirstname().length() == (0)) {
-            this.addFieldError("user.firstname", "Firstname is required");
+            addActionError("Firstname is required");
         }
         
         if (!Validate.checkNumbersInString(user.getFirstname())) {
-            this.addFieldError("user.firstname", "Wrong firstname");
+            addActionError("Firstname has wrong marks");
         }
         
-        if (user.getLastname().length() == (0)) {
-            this.addFieldError("user.lastname", "Lastname is required");
+         if (user.getLastname().length() == (0)) {
+            addActionError("Lastname is required");
         }
         
         if (!Validate.checkNumbersInString(user.getLastname())) {
-            this.addFieldError("user.lastname", "Wrong lastname");
+            addActionError("Lastname has wrong marks");
+        }
+        
+        if(user.getLastname().equals(user.getFirstname())){
+            addActionError("Firstname = Lastname");
         }
     }
      
     @Override
     public String execute() {
-        dao.addWorker(user.getId(), user.getFirstname(), 
-                                    user.getLastname(), user.getLogin(), 
-                                    user.getPassword(), user.getPlace(), 
-                                    user.getRank());
-        
-        return SUCCESS;
+        if(userDao.addWorker(user.getId(), user.getFirstname(), user.getLastname(), 
+                                          user.getLogin(), user.getPassword(), user.getPlace(),  user.getRank()))
+            return SUCCESS;
+        return INPUT;
     }
 }

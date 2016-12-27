@@ -25,16 +25,16 @@ public class LoginAction extends AbstractUserAction implements SessionAware {
             addActionError("Password is required!");
         }
         
-        if (!dao.find(user.getLogin(), user.getPassword())) {
+        if (!userDao.find(user.getLogin(), user.getPassword())) {
             addActionError("Wrong login or password!");
         }
     }
  
     @Override
     public String execute() {
-        String rank = dao.getUserRank(user.getLogin(), user.getPassword());
+        String rank = userDao.getUserRank(user.getLogin(), user.getPassword());
 
-        session.put("userID", dao.getUserID(user.getLogin(), user.getPassword()));
+        session.put("userID", userDao.getUserID(user.getLogin(), user.getPassword()));
         session.put("rank", rank);
         
         // Reset cache values
