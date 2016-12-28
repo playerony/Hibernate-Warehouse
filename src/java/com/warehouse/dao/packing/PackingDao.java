@@ -56,6 +56,7 @@ public class PackingDao {
 
             if((String) session.get("check") == null){
                 session.put("items", getProducts(palletsPicked.getId()));
+                session.put("safe", getProducts(palletsPicked.getId()));
                 session.put("check", "true");
                 session.put("orderID", palletsPicked.getId());
                 products = getProducts(palletsPicked.getId());
