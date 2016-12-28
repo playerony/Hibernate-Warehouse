@@ -36,6 +36,10 @@ public class PickingMenuAction extends AbstractPickingAction implements SessionA
         if(palletsInMagazine.getLocation().length() <= (0)){
             addActionError("Wrong location");
         }
+        
+        if(!pickingDao.checkLocation(palletsInMagazine.getLocation())){
+            addActionError("Can't find this location");
+        }
     }
 
     @Override
