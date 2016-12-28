@@ -8,6 +8,7 @@ package com.warehouse.dao.picking;
 import com.warehouse.entity.Order;
 import com.warehouse.utility.HibernateUtil;
 import java.util.List;
+import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -18,64 +19,100 @@ import org.hibernate.Transaction;
  */
 public class OrderDao {
     
-    public boolean checkOrderById(int id){
-        Session session = HibernateUtil.createSessionFactory().openSession();
-        session.beginTransaction();
-        
-        String sql = "from Order o where o.id=:orderId";
-        Query query = session.createQuery(sql);
-        query.setParameter("orderId", id);
-        List<Order> list = query.list();
-        
-        if (list.size() > 0) {
+    public boolean checkOrderById(final int id){
+        try{
+            Session session = HibernateUtil.createSessionFactory().openSession();
+            session.beginTransaction();
+
+            String sql = "from Order o where o.id=:orderId";
+            Query query = session.createQuery(sql);
+            query.setParameter("orderId", id);
+            List<Order> list = query.list();
+
+            if (list.size() > 0) {
+                HibernateUtil.shutdown();
+                return true;
+            }
+
             HibernateUtil.shutdown();
-            return true;
+        }catch(HibernateException e){
+            e.printStackTrace();
         }
         
-        HibernateUtil.shutdown();
         return false;
     }
     
-    public String getProducts(int id){
-        Session session = HibernateUtil.createSessionFactory().openSession();
-        session.beginTransaction();
+    public String getProducts(final int id){
+        try{
+            Session session = HibernateUtil.createSessionFactory().openSession();
+            session.beginTransaction();
+
+            String sql = " from Order o where o.id=:id";
+            Query query = session.createQuery(sql);
+            query.setParameter("id", id);
+            List<Order> list = query.list();
+
+            if (list.size() > 0) {
+                HibernateUtil.shutdown();
+                return list.get(0).getItems();
+            }
+
+            HibernateUtil.shutdown();
+        }catch(HibernateException e){
+            e.printStackTrace();
+        }
         
-        String sql = " from Order o where o.id=:id";
-        Query query = session.createQuery(sql);
-        query.setParameter("id", id);
-        List<Order> list = query.list();
-        
-        HibernateUtil.shutdown();
-        
-        return list.get(0).getItems();
+        return "error";
     }
     
-    public String getClientID(int orderID){
-        Session session = HibernateUtil.createSessionFactory().openSession();
-        session.beginTransaction();
+    public String getClientID(final int orderID){
+        try{
+            Session session = HibernateUtil.createSessionFactory().openSession();
+            session.beginTransaction();
+
+            String sql = " from Order o where o.client.id=:id";
+            Query query = session.createQuery(sql);
+            query.setParameter("id", orderID);
+            List<Order> list = query.list();
+
+            if (list.size() > 0) {
+                HibernateUtil.shutdown();
+                return String.valueOf(list.get(0).getClient().getId());
+            }
+
+            HibernateUtil.shutdown();
+        }catch(HibernateException e){
+            e.printStackTrace();
+        }
         
-        String sql = " from Order o where o.client.id=:id";
-        Query query = session.createQuery(sql);
-        query.setParameter("id", orderID);
-        List<Order> list = query.list();
-        
-        HibernateUtil.shutdown();
-        
-        return String.valueOf(list.get(0).getClient().getId());
+        return "error";
     }
     
-    public void updateOrderValue(int id, String value){
-        Session session = HibernateUtil.createSessionFactory().openSession();
-        Transaction tx = session.beginTransaction();
+    public boolean updateOrderValue(final int id, final String phrase){
+        boolean result = false;
         
-        String sql = " update Order o set o.items=:value where o.id=:id";
-        Query query = session.createQuery(sql);
-        query.setParameter("value", value);
-        query.setParameter("id", id);
+        try{
+            Session session = HibernateUtil.createSessionFactory().openSession();
+            Transaction tx = session.beginTransaction();
+
+            String sql = " update Order o set o.items=:value where o.id=:id";
+            Query query = session.createQuery(sql);
+            query.setParameter("value", phrase);
+            query.setParameter("id", id);
+
+            int value = query.executeUpdate();
+            if(value==0)
+                result = false;
+            else
+                result = true;
+            
+            tx.commit();
+
+            HibernateUtil.shutdown();
+        }catch(HibernateException e){
+            e.printStackTrace();
+        }
         
-        query.executeUpdate();
-        tx.commit();
-        
-        HibernateUtil.shutdown();
+        return result;
     }
 }
