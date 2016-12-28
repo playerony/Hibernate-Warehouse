@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib uri="/struts-tags" prefix="s"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -12,6 +13,16 @@
         <title>Worker panel</title>
     </head>
     <body>
-        <h1>Hello Worker!</h1>
+        <s:form method="post" action="pickingCheckOrderNumber.jsp">
+            <s:submit value="1. Picking"/>
+        </s:form>
+            
+        <s:form method="post" action="packingMenu.jsp">
+            <s:submit value="2. Packing"/>
+        </s:form>
+	
+        <s:form method="post" action="logout">
+            <s:submit value="3. Logout"/>
+        </s:form>
     </body>
 </html>
