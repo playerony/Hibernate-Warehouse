@@ -49,51 +49,55 @@ public class PackingDao {
     public boolean packButtonAction(PalletsPicked palletsPicked, PalleteInfo palleteInfo, Map<String, Object> session){
         boolean res = false;
         
-        String products = null;
-        String result = palleteInfo.getId() + "(" + palleteInfo.getAmount() + ")";
-        String orderPhrase = (String) session.get("order");
-        
-        if((String) session.get("check") == null){
-            session.put("items", getProducts(palletsPicked.getId()));
-            session.put("check", "true");
-            session.put("orderID", palletsPicked.getId());
-            products = getProducts(palletsPicked.getId());
-        }else{
-            products = (String) session.get("items");
-        }
-		
-        if(products != null){
-            ArrayList<PalleteInfo> palleteItems = Validate.getPalleteInformations((String) session.get("items"));
-			
-            PalleteInfo pal = null;
-            for(PalleteInfo p : palleteItems)
-                if(palleteInfo.getId() == p.getId()){
-                    pal = p;
-                    break;
+        try{
+            String products = null;
+            String result = palleteInfo.getId() + "(" + palleteInfo.getAmount() + ")";
+            String orderPhrase = (String) session.get("order");
+
+            if((String) session.get("check") == null){
+                session.put("items", getProducts(palletsPicked.getId()));
+                session.put("check", "true");
+                session.put("orderID", palletsPicked.getId());
+                products = getProducts(palletsPicked.getId());
+            }else{
+                products = (String) session.get("items");
+            }
+
+            if(products != null){
+                ArrayList<PalleteInfo> palleteItems = Validate.getPalleteInformations((String) session.get("items"));
+
+                PalleteInfo pal = null;
+                for(PalleteInfo p : palleteItems)
+                    if(palleteInfo.getId() == p.getId()){
+                        pal = p;
+                        break;
+                    }
+
+                    if(pal != null){
+                        int value = pal.getAmount() - palleteInfo.getAmount();
+                        pal.setAmount(value);
+
+                        if(value <= 0)
+                            palleteItems.remove(pal);
+
+                        String phr = "";
+                        phr = palleteItems.stream().filter((p) -> (p != null)).map((p) -> (p.getId() + "(" + p.getAmount() + ")" + ",")).reduce(phr, String::concat);   
+                        session.put("items", phr);
+
+                        if(orderPhrase != null)
+                            session.put("order", orderPhrase + "," + result);
+                        else
+                            session.put("order", result);
+
+                        System.out.print(session.get("items"));
+                        System.out.print(session.get("order"));
+
+                            res = true;
+                    }
                 }
-                    
-                if(pal != null){
-                    int value = pal.getAmount() - palleteInfo.getAmount();
-                    pal.setAmount(value);
-
-                    if(value <= 0)
-                        palleteItems.remove(pal);
-
-                    String phr = "";
-                    phr = palleteItems.stream().filter((p) -> (p != null)).map((p) -> (p.getId() + "(" + p.getAmount() + ")" + ",")).reduce(phr, String::concat);   
-                    session.put("items", phr);
-
-                    if(orderPhrase != null)
-                        session.put("order", orderPhrase + "," + result);
-                    else
-                        session.put("order", result);
-                    
-                    System.out.print(session.get("items"));
-                    System.out.print(session.get("order"));
-
-                        res = true;
-                }
-        } 
+            }catch(Exception e){
+                e.printStackTrace();
+            }
         
         return res;
     }
