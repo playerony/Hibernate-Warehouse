@@ -21,7 +21,7 @@ public class PickingMenuAction extends AbstractPickingAction implements SessionA
             addActionError("ID is not a number");
         }
         
-        if(palleteInfo.getId() <= 0) {
+        if(palleteInfo.getId() < 0) {
             addActionError("Wrong ID");
         }
         
@@ -29,7 +29,7 @@ public class PickingMenuAction extends AbstractPickingAction implements SessionA
             addActionError("Amount is not a number");
         }
         
-        if(palleteInfo.getAmount() <= 0) {
+        if(palleteInfo.getAmount() < 0) {
             addActionError("Wrong amount");
         }
         

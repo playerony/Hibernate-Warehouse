@@ -27,6 +27,7 @@
         <action name="logout" class="com.warehouse.dao.user.LogoutAction">
             <result name="success">/login.jsp</result>
             <result name="session">/login.jsp</result>
+            <result name="error">/error403.jsp</result>
         </action>
         
         
@@ -34,17 +35,20 @@
             <result name="success">/admin.jsp</result>
             <result name="input">/addWorker.jsp</result>
             <result name="session">/error403.jsp</result>
+            <result name="error">/error403.jsp</result>
         </action>
         
         <action name="delete" class="com.warehouse.dao.user.DeleteWorkerAction">
             <result name="success">/admin.jsp</result>
             <result name="input">/deleteWorker.jsp</result>
             <result name="session">/error403.jsp</result>
+            <result name="error">/error403.jsp</result>
         </action>
         
         <action name="backUser" class="com.warehouse.dao.user.UserButtonAction" method="backButtonAction">
             <result name="admin">/admin.jsp</result>
             <result name="session">/error403.jsp</result>
+            <result name="error">/error403.jsp</result>
         </action>
         
         
@@ -52,6 +56,7 @@
             <result name="success">/pickingMenu.jsp</result>
             <result name="input">/pickingCheckOrderNumber.jsp</result>
             <result name="session">/error403.jsp</result>
+            <result name="error">/error403.jsp</result>
         </action>
         
         
@@ -61,6 +66,7 @@
             <result name="worker">/worker.jsp</result>
             <result name="input">/pickingMenu.jsp</result>
             <result name="session">/error403.jsp</result>
+            <result name="error">/error403.jsp</result>
         </action>
         
         <action name="finishPick" class="com.warehouse.dao.picking.PickingButtonAction" method="finishButtonAction">
@@ -68,12 +74,14 @@
             <result name="worker">/worker.jsp</result>
             <result name="input">/pickingMenu.jsp</result>
             <result name="session">/error403.jsp</result>
+            <result name="error">/error403.jsp</result>
         </action>
         
         <action name="backPick" class="com.warehouse.dao.picking.PickingButtonAction" method="backButtonAction">
             <result name="admin">/admin.jsp</result>
             <result name="worker">/worker.jsp</result>
             <result name="session">/error403.jsp</result>
+            <result name="error">/error403.jsp</result>
         </action>
         
         
@@ -83,6 +91,7 @@
             <result name="worker">/worker.jsp</result>
             <result name="input">/packingMenu.jsp</result>
             <result name="session">/error403.jsp</result>
+            <result name="error">/error403.jsp</result>
         </action>
         
         <action name="finishPack" class="com.warehouse.dao.packing.PackingButtonAction" method="finishButtonAction">
@@ -90,12 +99,14 @@
             <result name="worker">/worker.jsp</result>
             <result name="input">/packingMenu.jsp</result>
             <result name="session">/error403.jsp</result>
+            <result name="error">/error403.jsp</result>
         </action>
         
         <action name="backPack" class="com.warehouse.dao.packing.PackingButtonAction" method="backButtonAction">
             <result name="admin">/admin.jsp</result>
             <result name="worker">/worker.jsp</result>
             <result name="session">/error403.jsp</result>
+             <result name="error">/error403.jsp</result>
         </action>
     </package>
 </struts>

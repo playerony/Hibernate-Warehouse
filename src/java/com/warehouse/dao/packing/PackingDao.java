@@ -102,7 +102,7 @@ public class PackingDao {
         return res;
     }
     
-    public boolean createPackingPallete(int id, int workerID, int clientID, String products, Date date, String type){
+    public boolean createPackingPallete(final int id, final int workerID, final int clientID, final String products, final Date date, final String type){
         try{
             Session session = HibernateUtil.createSessionFactory().openSession();
             session.beginTransaction();
