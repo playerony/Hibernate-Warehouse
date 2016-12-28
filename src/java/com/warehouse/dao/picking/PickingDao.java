@@ -138,9 +138,9 @@ public class PickingDao {
         try{
             Session session = HibernateUtil.createSessionFactory().openSession();
             session.beginTransaction();
-            String sql = " delete PalletsPicked where p.id=:id";
+            String sql = " delete PalletsPicked where id=:value";
             Query query = session.createQuery(sql);
-            query.setParameter("id", id);
+            query.setParameter("value", id);
             int value = query.executeUpdate();
 
             if(value==0)
