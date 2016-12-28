@@ -132,4 +132,28 @@ public class PickingDao {
         
         return result;
     }
+    
+    public boolean deletePickedPallete(final int id){
+        boolean result = false;
+        try{
+            Session session = HibernateUtil.createSessionFactory().openSession();
+            session.beginTransaction();
+            String sql = " delete PalletsPicked where p.id=:id";
+            Query query = session.createQuery(sql);
+            query.setParameter("id", id);
+            int value = query.executeUpdate();
+
+            if(value==0)
+                result = false;
+            else
+                result = true;
+
+            session.getTransaction().commit(); 
+            HibernateUtil.shutdown();
+        }catch(HibernateException e){
+            e.printStackTrace();
+        }
+        
+        return result;
+    }
 }
