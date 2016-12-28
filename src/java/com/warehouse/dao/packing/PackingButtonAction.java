@@ -29,17 +29,26 @@ public class PackingButtonAction extends AbstractPackingAction implements Sessio
     }
     
     public String finishButtonAction(){
-        packingDao.createPackingPallete(0, Integer.parseInt((String) session.get("userID")), 
-                                                            Integer.parseInt(pickingDao.getClientID(Integer.parseInt(String.valueOf(session.get("orderID"))))), 
-                                                            String.valueOf(session.get("order")), Calendar.getInstance().getTime(), "pallete");
-        pickingDao.updatePickedPallete(Integer.parseInt(String.valueOf(session.get("orderID"))), String.valueOf(session.get("items")));
+        if(String.valueOf(session.get("items")).length() > 0){
+            if(!pickingDao.updatePickedPallete(Integer.parseInt(String.valueOf(session.get("orderID"))), String.valueOf(session.get("items")))){
+                return INPUT;
+            }
+        }else
+            pickingDao.deletePickedPallete(Integer.parseInt(String.valueOf(session.get("orderID"))));
         
-        session.put("items", null);
-        session.put("orderID", null);
-        session.put("order", null);
-        session.put("check", null);
-        
-        return (String) session.get("rank");
+        if(!pickingDao.getClientID(Integer.parseInt(String.valueOf(session.get("orderID")))).equals("error") && 
+                packingDao.createPackingPallete(0, Integer.parseInt((String) session.get("userID")), 
+                Integer.parseInt(pickingDao.getClientID(Integer.parseInt(String.valueOf(session.get("orderID"))))), 
+                String.valueOf(session.get("order")), Calendar.getInstance().getTime(), "pallete"))
+        {
+            session.put("items", null);
+            session.put("orderID", null);
+            session.put("order", null);
+            session.put("check", null);
+
+            return (String) session.get("rank");
+        }else
+            return "error";
     }
     
     public String backButtonAction(){
