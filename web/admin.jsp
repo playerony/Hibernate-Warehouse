@@ -13,24 +13,24 @@
         <title>Admin panel</title>
     </head>
     <body>
-        <form method="post" action="addWorker.jsp">
-            <input type="submit" value="1. Add Worker">
-        </form>
-	
-        <form method="post" action="deleteWorker.jsp">
-            <input type="submit" value="2. Delete Worker">
-        </form>
-	
-        <form method="post" action="pickingCheckOrderNumber.jsp">
-            <input type="submit" value="3. Picking">
-        </form>
+        <s:form method="post" action="addWorker.jsp">
+            <s:submit value="1. Add Worker"/>
+        </s:form>
+        
+        <s:form method="post" action="deleteWorker.jsp">
+            <s:submit value="2. Delete Worker"/>
+        </s:form>
+        
+        <s:form method="post" action="pickingCheckOrderNumber.jsp">
+            <s:submit value="3. Picking"/>
+        </s:form>
             
-        <form method="post" action="packingMenu.jsp">
-            <input type="submit" value="4. Packing">
-        </form>
+        <s:form method="post" action="packingMenu.jsp">
+            <s:submit value="4. Packing"/>
+        </s:form>
 	
-        <form method="post" action="Logout">
-            <input type="submit" value="5. Logout">
-        </form>
+        <s:form method="post" action="logout">
+            <s:submit value="5. Logout"/>
+        </s:form>
     </body>
 </html>
