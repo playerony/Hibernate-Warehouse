@@ -17,16 +17,24 @@ public class PickingMenuAction extends AbstractPickingAction implements SessionA
 
     @Override
     public void validate() {
-        if(String.valueOf(palleteInfo.getId()) == null){
-            this.addFieldError("palleteInfo.id", "It's not a number");
+        if(String.valueOf(palleteInfo.getId()).equals("0")){
+            addActionError("ID is not a number");
         }
         
-        if(String.valueOf(palleteInfo.getAmount()) == null){
-            this.addFieldError("palleteInfo.amount", "It's not a number");
+        if(palleteInfo.getId() <= 0) {
+            addActionError("Wrong ID");
         }
         
-        if(palletsInMagazine.getLocation().length() == (0)){
-            this.addFieldError("palletsInMagazine.location", "Wrong location");
+        if(String.valueOf(palleteInfo.getAmount()).equals("0")){
+            addActionError("Amount is not a number");
+        }
+        
+        if(palleteInfo.getAmount() <= 0) {
+            addActionError("Wrong amount");
+        }
+        
+        if(palletsInMagazine.getLocation().length() <= (0)){
+            addActionError("Wrong location");
         }
     }
 
@@ -35,7 +43,7 @@ public class PickingMenuAction extends AbstractPickingAction implements SessionA
         if(pickingDao.nextItemButtonAction(palleteInfo, palletsInMagazine, session)){
             return SUCCESS;
         }else{
-            this.addActionError("Some problems by adding next item!");
+            addActionError("Some problems by adding next item!");
             
             return INPUT;
         }
