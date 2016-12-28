@@ -26,17 +26,25 @@ public class PickingButtonAction extends AbstractPickingAction implements Sessio
     }
     
     public String finishButtonAction(){
-        orderDao.updateOrderValue(Integer.parseInt((String) session.get("orderID")), (String) session.get("items"));
-        pickingDao.createPickingPallete(0, Integer.parseInt((String) session.get("userID")), 
-                                                            Integer.parseInt(orderDao.getClientID(Integer.parseInt((String) session.get("orderID")))), 
-                                                            (String) session.get("order"));
+        if(String.valueOf(session.get("items")).length() > 0){
+            if(!orderDao.updateOrderValue(Integer.parseInt(String.valueOf(session.get("orderID"))), String.valueOf(session.get("items")))){
+                return INPUT;
+            }
+        }else
+            orderDao.deleteOrder(Integer.parseInt(String.valueOf(session.get("orderID"))));
         
-        session.put("items", null);
-        session.put("orderID", null);
-        session.put("order", null);
-        session.put("check", null);
-        
-        return (String) session.get("rank");
+        if(!orderDao.getClientID(Integer.parseInt(String.valueOf(session.get("orderID")))).equals("error") && 
+            pickingDao.createPickingPallete(0, Integer.parseInt((String) session.get("userID")), 
+                                                            Integer.parseInt(orderDao.getClientID(Integer.parseInt(String.valueOf(session.get("orderID"))))), 
+                                                            String.valueOf(session.get("order")))){
+            session.put("items", null);
+            session.put("orderID", null);
+            session.put("order", null);
+            session.put("check", null);
+
+            return (String) session.get("rank");
+        }else
+            return "error";
     }
     
     public String backButtonAction(){
