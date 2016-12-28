@@ -42,6 +42,7 @@ public class LoginAction extends AbstractUserAction implements SessionAware {
         session.put("orderID", null);
         session.put("order", null);
         session.put("check", null);
+        session.put("safe", null);
 
         if(!session.get("userID").equals("error"))
             return rank;

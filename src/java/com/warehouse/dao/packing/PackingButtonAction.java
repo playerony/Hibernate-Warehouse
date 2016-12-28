@@ -48,8 +48,13 @@ public class PackingButtonAction extends AbstractPackingAction implements Sessio
             session.put("safe", null);
 
             return (String) session.get("rank");
-        }else
+        }else{
+            if(pickingDao.updatePickedPallete(Integer.parseInt(String.valueOf(session.get("orderID"))), String.valueOf(session.get("safe")))){
+                return INPUT;
+            }
+            
             return "error";
+        }
     }
     
     public String backButtonAction(){
