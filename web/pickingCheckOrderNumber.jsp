@@ -13,6 +13,12 @@
         <title>Check order number page</title>
     </head>
     <body>
+        <s:if test="hasActionErrors()">
+            <div class="errors">
+                <s:actionerror/>
+            </div>
+         </s:if>
+        
         <s:form action="checkOrder">
             <s:textfield name="order.id" label="Order id "/>
 		
