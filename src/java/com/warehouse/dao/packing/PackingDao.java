@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
@@ -22,18 +23,27 @@ import org.hibernate.Session;
  * @author pawel_000
  */
 public class PackingDao {
-    public String getProducts(int id){
-        Session session = HibernateUtil.createSessionFactory().openSession();
-        session.beginTransaction();
+    public String getProducts(final int id){
+        try{
+            Session session = HibernateUtil.createSessionFactory().openSession();
+            session.beginTransaction();
+
+            String sql = " from PalletsPicked p where p.id=:id";
+            Query query = session.createQuery(sql);
+            query.setParameter("id", id);
+            List<PalletsPicked> list = query.list();
+
+            if (list.size() > 0) {
+                HibernateUtil.shutdown();
+                return list.get(0).getProducts();
+            }
+
+            HibernateUtil.shutdown();
+        }catch(HibernateException e){
+            e.printStackTrace();
+        }
         
-        String sql = " from PalletsPicked p where p.id=:id";
-        Query query = session.createQuery(sql);
-        query.setParameter("id", id);
-        List<PalletsPicked> list = query.list();
-        
-        HibernateUtil.shutdown();
-        
-        return list.get(0).getProducts();
+        return "error";
     }
     
     public boolean packButtonAction(PalletsPicked palletsPicked, PalleteInfo palleteInfo, Map<String, Object> session){
