@@ -31,6 +31,7 @@ public class CheckOrderNumber extends AbstractPickingAction implements SessionAw
         if(orderDao.checkOrderById(order.getId())){
             session.put("orderID", String.valueOf(order.getId()));
             session.put("items", orderDao.getProducts(order.getId()));
+            session.put("safe", orderDao.getProducts(order.getId()));
             session.put("order", null);
             
             return SUCCESS;

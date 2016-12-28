@@ -42,10 +42,16 @@ public class PickingButtonAction extends AbstractPickingAction implements Sessio
             session.put("orderID", null);
             session.put("order", null);
             session.put("check", null);
+            session.put("safe", null);
 
             return (String) session.get("rank");
-        }else
+        }else{
+            if(orderDao.updateOrderValue(Integer.parseInt(String.valueOf(session.get("orderID"))), String.valueOf(session.get("safe")))){
+                return INPUT;
+            }
+            
             return "error";
+        }
     }
     
     public String backButtonAction(){
