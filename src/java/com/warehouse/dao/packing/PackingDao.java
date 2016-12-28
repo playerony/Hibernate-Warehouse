@@ -46,7 +46,7 @@ public class PackingDao {
         return "error";
     }
     
-    public boolean packButtonAction(PalletsPicked palletsPicked, PalleteInfo palleteInfo, Map<String, Object> session){
+    public boolean packButtonAction(final PalletsPicked palletsPicked, final PalleteInfo palleteInfo, Map<String, Object> session){
         boolean res = false;
         
         try{
@@ -103,15 +103,20 @@ public class PackingDao {
     }
     
     public boolean createPackingPallete(int id, int workerID, int clientID, String products, Date date, String type){
-        Session session = HibernateUtil.createSessionFactory().openSession();
-        session.beginTransaction();
+        try{
+            Session session = HibernateUtil.createSessionFactory().openSession();
+            session.beginTransaction();
+
+            PalletsPacked palletsPacked = new PalletsPacked(id, workerID, clientID, products, date, type);
+            session.save(palletsPacked);
+            session.getTransaction().commit();
+
+            HibernateUtil.shutdown();
+            return true;
+        }catch(HibernateException e){
+            e.printStackTrace();
+        }
         
-        PalletsPacked palletsPacked = new PalletsPacked(id, workerID, clientID, products, date, type);
-        session.save(palletsPacked);
-        session.getTransaction().commit();
-        
-        HibernateUtil.shutdown();
-        
-        return true;
+        return false;
     }
 }
