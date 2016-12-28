@@ -156,4 +156,27 @@ public class PickingDao {
         
         return result;
     }
+    
+    public boolean checkLocation(final String location){
+        try{
+            Session session = HibernateUtil.createSessionFactory().openSession();
+            session.beginTransaction();
+
+            String sql = " from PalletsInMagazine p where p.location=:locate";
+            Query query = session.createQuery(sql);
+            query.setParameter("locate", location);
+            List<PalletsPicked> list = query.list();
+
+            if(list.size() > 0){
+                HibernateUtil.shutdown();
+                return true;
+            }
+
+            HibernateUtil.shutdown();
+        }catch(HibernateException e){
+            e.printStackTrace();
+        }
+        
+        return false;
+    }
 }
