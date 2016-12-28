@@ -24,5 +24,9 @@
 		
             <s:submit value="Check order number"/>
         </s:form>
+        
+        <s:form action="backUser">
+            <s:submit value="Back"/>
+        </s:form>
     </body>
 </html>
