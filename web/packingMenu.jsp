@@ -13,6 +13,12 @@
         <title>Packing menu page</title>
     </head>
     <body>
+        <s:if test="hasActionErrors()">
+            <div class="errors">
+                <s:actionerror/>
+            </div>
+        </s:if>
+        
         <s:form action="packMenu">
             <s:textfield name="palletsPicked.id" label="Pallete id"/>
             <s:textfield name="palleteInfo.id" label="Product id"/>
