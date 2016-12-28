@@ -17,12 +17,12 @@ public class CheckOrderNumber extends AbstractPickingAction implements SessionAw
 
     @Override
     public void validate() {
-        if(String.valueOf(order.getId()) == null) {
-            this.addActionError("It's not a number!");
+        if(String.valueOf(order.getId()).equals("0")) {
+            addActionError("It's not a number!!");
         }
         
-        if(order.getId() <= (0)) {
-            this.addActionError("Wrong number");
+        if(order.getId() <= 0) {
+            addActionError("Wrong number");
         }
     }
 
