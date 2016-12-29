@@ -19,7 +19,7 @@
             </div>
          </s:if>
         
-        <s:form action="login">
+        <s:form action="login" method="post">
             <s:textfield name="user.login" label="Login"/>
             <s:password name="user.password" label="Password"/>
             <s:submit value="Login"/>

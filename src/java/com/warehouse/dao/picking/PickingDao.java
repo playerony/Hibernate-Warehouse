@@ -179,4 +179,27 @@ public class PickingDao {
         
         return false;
     }
+    
+    public String getProductsByLocation(final String location){
+        try{
+            Session session = HibernateUtil.createSessionFactory().openSession();
+            session.beginTransaction();
+
+            String sql = " from PalletsInMagazine p where p.location=:locate";
+            Query query = session.createQuery(sql);
+            query.setParameter("locate", location);
+            List<PalletsInMagazine> list = query.list();
+
+            if(list.size() > 0){
+                HibernateUtil.shutdown();
+                return String.valueOf(list.get(0).getProducts());
+            }
+
+            HibernateUtil.shutdown();
+        }catch(HibernateException e){
+            e.printStackTrace();
+        }
+        
+        return "error";
+    }
 }
