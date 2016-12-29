@@ -202,4 +202,14 @@ public class PickingDao {
         
         return "error";
     }
+    
+    public boolean verifyILocationByItems(final String products, final PalleteInfo palleteInfo){
+        ArrayList<PalleteInfo> palleteItems = Validate.getPalleteInformations(products);
+        for(PalleteInfo p : palleteItems)
+                if(palleteInfo.getId() == p.getId() && palleteInfo.getAmount() <= p.getAmount()){
+                    return true;
+                }
+        
+        return false;
+    }
 }
