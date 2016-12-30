@@ -141,7 +141,7 @@ class UserDao {
 
             if (list.size() > 0) {
                 HibernateUtil.shutdown();
-                return list.get(0).getRank();
+                return String.valueOf(list.get(0).getId());
             }
 
             HibernateUtil.shutdown();
