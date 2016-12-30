@@ -34,7 +34,8 @@ public class PickingButtonAction extends AbstractPickingAction implements Sessio
             orderDao.deleteOrder(Integer.parseInt(String.valueOf(session.get("orderID"))));
         
         if(!orderDao.getClientID(Integer.parseInt(String.valueOf(session.get("orderID")))).equals("error") && 
-            pickingDao.createPickingPallete(0, Integer.parseInt((String) session.get("userID")), 
+            (String)session.get("order") != null &&
+            pickingDao.createPickingPallete(0, Integer.parseInt(String.valueOf(session.get("userID"))), 
             Integer.parseInt(orderDao.getClientID(Integer.parseInt(String.valueOf(session.get("orderID"))))), 
             String.valueOf(session.get("order"))))
         {

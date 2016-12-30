@@ -61,6 +61,9 @@ public class PickingDao {
                 phrase = String.valueOf(locationItems.get(0).getId()) + "(" + String.valueOf(locationItems.get(0).getAmount() - palleteInfo.getAmount()) + ")";
                 
                 updateLoctionItems(palletsInMagazine.getLocation(),  phrase);
+                
+                System.out.print(session.get("items"));
+                System.out.print(session.get("order"));
 
                 res = true;
             }
