@@ -55,6 +55,12 @@ public class PickingDao {
                     session.put("order", orderPhrase + "," + result);
                 else
                     session.put("order", result);
+                
+                String val = getProductsByLocation(palletsInMagazine.getLocation());
+                ArrayList<PalleteInfo> locationItems = Validate.getPalleteInformations(val);
+                phrase = String.valueOf(locationItems.get(0).getId()) + "(" + String.valueOf(locationItems.get(0).getAmount() - palleteInfo.getAmount()) + ")";
+                
+                updateLoctionItems(palletsInMagazine.getLocation(),  phrase);
 
                 res = true;
             }
@@ -219,7 +225,7 @@ public class PickingDao {
             Session session = HibernateUtil.createSessionFactory().openSession();
             Transaction tx = session.beginTransaction();
 
-            String sql = " update PalletsInMagazine p set p.location=:location where p.products=:products";
+            String sql = " update PalletsInMagazine p set p.products=:products where p.location=:location";
             Query query = session.createQuery(sql);
             query.setParameter("location", location);
             query.setParameter("products", items);
