@@ -34,19 +34,19 @@ public class LoginAction extends AbstractUserAction implements SessionAware {
     public String execute() {
         String rank = userDao.getUserRank(user.getLogin(), user.getPassword());
 
-        session.put("userID", userDao.getUserID(user.getLogin(), user.getPassword()));
-        session.put("rank", rank);
-        
-        // Reset cache values
-        session.put("items", null);
-        session.put("orderID", null);
-        session.put("order", null);
-        session.put("check", null);
-        session.put("safe", null);
+        if(!userDao.getUserID(user.getLogin(), user.getPassword()).equals("error")){
+            session.put("userID", userDao.getUserID(user.getLogin(), user.getPassword()));
+            session.put("rank", rank);
 
-        if(!session.get("userID").equals("error"))
+            // Reset cache values
+            session.put("items", null);
+            session.put("orderID", null);
+            session.put("order", null);
+            session.put("check", null);
+            session.put("safe", null);
+            
             return rank;
-        else
+        }else
             return "error";
     }
 
