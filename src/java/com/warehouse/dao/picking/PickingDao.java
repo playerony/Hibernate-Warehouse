@@ -212,4 +212,31 @@ public class PickingDao {
         
         return false;
     }
+    
+    public boolean updateLoctionItems(final String location, final String items){
+        boolean result = false;
+        try{
+            Session session = HibernateUtil.createSessionFactory().openSession();
+            Transaction tx = session.beginTransaction();
+
+            String sql = " update PalletsInMagazine p set p.location=:location where p.products=:products";
+            Query query = session.createQuery(sql);
+            query.setParameter("location", location);
+            query.setParameter("products", items);
+
+            int value = query.executeUpdate();
+            if(value==0)
+                    result = false;
+                else
+                    result = true;
+
+            tx.commit();
+
+            HibernateUtil.shutdown();
+        }catch(HibernateException e){
+            e.printStackTrace();
+        }
+        
+        return result;
+    }
 }
