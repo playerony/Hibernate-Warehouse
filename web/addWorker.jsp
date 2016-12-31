@@ -19,13 +19,13 @@
             </div>
          </s:if>
         
-        <s:form action="add">
-            <s:textfield name="user.login" label="Login(Max 10 length)"/>
-            <s:password name="user.password" label="Password(Max 10 length)"/>
-            <s:textfield name="user.firstname" label="Firstname"/>
-            <s:textfield name="user.lastname" label="Lastname"/>
-            <s:select name="user.place" list="{'Gliwice', 'Zabrze'}" emptyOption="false" label="Select place"/>
-            <s:select name="user.rank" list="{'Admin', 'Worker'}" emptyOption="false" label="Select rank"/>
+        <s:form action="addUser">
+            <s:textfield name="user.login" label="Login(Max 10 length) "/>
+            <s:password name="user.password" label="Password(Max 10 length) "/>
+            <s:textfield name="user.firstname" label="Firstname "/>
+            <s:textfield name="user.lastname" label="Lastname "/>
+            <s:select name="user.place" list="{'Gliwice', 'Zabrze', 'Gdynia', 'Torun'}" emptyOption="false" label="Select place "/>
+            <s:select name="user.rank" list="{'Admin', 'Worker'}" emptyOption="false" label="Select rank "/>
 
             <s:submit value="Add Worker"/>
         </s:form>

@@ -37,13 +37,13 @@ public class PickingMenuAction extends AbstractPickingAction implements SessionA
             addActionError("Wrong location");
         }
         
-        if(!pickingDao.checkLocation(palletsInMagazine.getLocation())){
+        if(!magazineDao.checkLocation(palletsInMagazine.getLocation())){
             addActionError("Can't find this location");
         }
         
-        String value = pickingDao.getProductsByLocation(palletsInMagazine.getLocation());
+        String value = magazineDao.getProductsByLocation(palletsInMagazine.getLocation());
         
-        if(!pickingDao.verifyILocationByItems(value, palleteInfo)){
+        if(!magazineDao.verifyILocationByItems(value, palleteInfo)){
             addActionError("Too low product by location");
         }
     }
