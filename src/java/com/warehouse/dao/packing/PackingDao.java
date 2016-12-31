@@ -23,6 +23,7 @@ import org.hibernate.Session;
  * @author pawel_000
  */
 public class PackingDao {
+    
     public String getProducts(final int id){
         try{
             Session session = HibernateUtil.createSessionFactory().openSession();

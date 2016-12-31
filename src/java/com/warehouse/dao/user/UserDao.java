@@ -17,6 +17,7 @@ import org.hibernate.Session;
  * @author pawel_000
  */
 class UserDao {
+    
     public boolean find(final String name, final String password) {
         try{
             Session session = HibernateUtil.createSessionFactory().openSession();
@@ -63,7 +64,8 @@ class UserDao {
     }
     
     public boolean addWorker(final int id, final String firstname, final String lastname, final String login, 
-                                                   final String password, final String place, final String rank){
+                                                   final String password, final String place, final String rank)
+    {
         try{
             Session session = HibernateUtil.createSessionFactory().openSession();
             session.beginTransaction();
@@ -83,6 +85,7 @@ class UserDao {
     
     public boolean deleteWorker(final String firstname, final String lastname){
         boolean result = false;
+        
         try{
             Session session = HibernateUtil.createSessionFactory().openSession();
             session.beginTransaction();
