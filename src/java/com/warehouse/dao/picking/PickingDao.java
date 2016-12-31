@@ -24,6 +24,7 @@ import org.hibernate.Transaction;
  */
 public class PickingDao {
     public boolean nextItemButtonAction(final PalleteInfo palleteInfo, final PalletsInMagazine palletsInMagazine, Map<String, Object> session){
+        MagazineDao magazineDao = new MagazineDao();
         boolean res = false;
         
         try{
@@ -56,14 +57,11 @@ public class PickingDao {
                 else
                     session.put("order", result);
                 
-                String val = getProductsByLocation(palletsInMagazine.getLocation());
+                String val = magazineDao.getProductsByLocation(palletsInMagazine.getLocation());
                 ArrayList<PalleteInfo> locationItems = Validate.getPalleteInformations(val);
                 phrase = String.valueOf(locationItems.get(0).getId()) + "(" + String.valueOf(locationItems.get(0).getAmount() - palleteInfo.getAmount()) + ")";
                 
-                updateLoctionItems(palletsInMagazine.getLocation(),  phrase);
-                
-                System.out.print(session.get("items"));
-                System.out.print(session.get("order"));
+                magazineDao.updateLoctionItems(palletsInMagazine.getLocation(),  phrase);
 
                 res = true;
             }
@@ -74,7 +72,7 @@ public class PickingDao {
         return res;
     }
     
-    public boolean createPickingPallete(int id, int workerID, int clientID, String products){
+    public boolean createPickingPallete(final int id, final int workerID, final int clientID, final String products){
         try{
             Session session = HibernateUtil.createSessionFactory().openSession();
             session.beginTransaction();
@@ -117,6 +115,7 @@ public class PickingDao {
     
     public boolean updatePickedPallete(final int id, final String phrase){
         boolean result = false;
+        
         try{
             Session session = HibernateUtil.createSessionFactory().openSession();
             Transaction tx = session.beginTransaction();
@@ -144,6 +143,7 @@ public class PickingDao {
     
     public boolean deletePickedPallete(final int id){
         boolean result = false;
+        
         try{
             Session session = HibernateUtil.createSessionFactory().openSession();
             session.beginTransaction();
@@ -158,89 +158,6 @@ public class PickingDao {
                 result = true;
 
             session.getTransaction().commit(); 
-            HibernateUtil.shutdown();
-        }catch(HibernateException e){
-            e.printStackTrace();
-        }
-        
-        return result;
-    }
-    
-    public boolean checkLocation(final String location){
-        try{
-            Session session = HibernateUtil.createSessionFactory().openSession();
-            session.beginTransaction();
-
-            String sql = " from PalletsInMagazine p where p.location=:locate";
-            Query query = session.createQuery(sql);
-            query.setParameter("locate", location);
-            List<PalletsPicked> list = query.list();
-
-            if(list.size() > 0){
-                HibernateUtil.shutdown();
-                return true;
-            }
-
-            HibernateUtil.shutdown();
-        }catch(HibernateException e){
-            e.printStackTrace();
-        }
-        
-        return false;
-    }
-    
-    public String getProductsByLocation(final String location){
-        try{
-            Session session = HibernateUtil.createSessionFactory().openSession();
-            session.beginTransaction();
-
-            String sql = " from PalletsInMagazine p where p.location=:locate";
-            Query query = session.createQuery(sql);
-            query.setParameter("locate", location);
-            List<PalletsInMagazine> list = query.list();
-
-            if(list.size() > 0){
-                HibernateUtil.shutdown();
-                return String.valueOf(list.get(0).getProducts());
-            }
-
-            HibernateUtil.shutdown();
-        }catch(HibernateException e){
-            e.printStackTrace();
-        }
-        
-        return "error";
-    }
-    
-    public boolean verifyILocationByItems(final String products, final PalleteInfo palleteInfo){
-        ArrayList<PalleteInfo> palleteItems = Validate.getPalleteInformations(products);
-        for(PalleteInfo p : palleteItems)
-                if(palleteInfo.getId() == p.getId() && palleteInfo.getAmount() <= p.getAmount()){
-                    return true;
-                }
-        
-        return false;
-    }
-    
-    public boolean updateLoctionItems(final String location, final String items){
-        boolean result = false;
-        try{
-            Session session = HibernateUtil.createSessionFactory().openSession();
-            Transaction tx = session.beginTransaction();
-
-            String sql = " update PalletsInMagazine p set p.products=:products where p.location=:location";
-            Query query = session.createQuery(sql);
-            query.setParameter("location", location);
-            query.setParameter("products", items);
-
-            int value = query.executeUpdate();
-            if(value==0)
-                    result = false;
-                else
-                    result = true;
-
-            tx.commit();
-
             HibernateUtil.shutdown();
         }catch(HibernateException e){
             e.printStackTrace();
