@@ -6,15 +6,32 @@
 package com.warehouse.entity;
 
 import java.io.Serializable;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 /**
  *
  * @author pawel_000
  */
+
+@Entity
+@Table(name="client")
 public class Client implements Serializable {
+    
+    @Id
+    @Column(name="client_id")
+    @GeneratedValue(strategy=GenerationType.AUTO)
     private int id;
+    
+    @Column(name="client_name")
     private String name;
+    @Column(name="client_address")
     private String address;
+    @Column(name="client_phone")
     private String phone;
     
     public Client(){
