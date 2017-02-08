@@ -5,11 +5,24 @@
  */
 package com.warehouse.entity;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 /**
  *
  * @author pawel_000
  */
+
+@Entity
+@Table(name="pallets_in_magazine")
 public class PalletsInMagazine {
+    
+    @Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
     private int id;
     private String products;
     private String location;
