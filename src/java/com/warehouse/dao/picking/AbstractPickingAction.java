@@ -10,6 +10,7 @@ import com.warehouse.entity.Client;
 import com.warehouse.entity.Order;
 import com.warehouse.entity.PalleteInfo;
 import com.warehouse.entity.PalletsInMagazine;
+import com.warehouse.impl.MagazineDaoImpl;
 
 /**
  *
@@ -21,7 +22,7 @@ public abstract class AbstractPickingAction extends ActionSupport{
     protected PalleteInfo palleteInfo;
     protected PalletsInMagazine palletsInMagazine;
     protected OrderDao orderDao = new OrderDao();
-    protected MagazineDao magazineDao = new MagazineDao();
+    protected MagazineDao magazineDao = new MagazineDaoImpl();
     protected PickingDao pickingDao = new PickingDao();
     
     @Override

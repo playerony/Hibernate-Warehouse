@@ -8,6 +8,7 @@ package com.warehouse.dao.picking;
 import com.warehouse.entity.PalleteInfo;
 import com.warehouse.entity.PalletsInMagazine;
 import com.warehouse.entity.PalletsPicked;
+import com.warehouse.impl.MagazineDaoImpl;
 import com.warehouse.utility.Validate;
 import com.warehouse.utility.HibernateUtil;
 import java.util.ArrayList;
@@ -24,7 +25,7 @@ import org.hibernate.Transaction;
  */
 public class PickingDao {
     public boolean nextItemButtonAction(final PalleteInfo palleteInfo, final PalletsInMagazine palletsInMagazine, Map<String, Object> session){
-        MagazineDao magazineDao = new MagazineDao();
+        MagazineDao magazineDao = new MagazineDaoImpl();
         boolean res = false;
         
         try{
