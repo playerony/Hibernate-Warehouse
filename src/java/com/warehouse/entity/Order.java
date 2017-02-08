@@ -7,15 +7,36 @@ package com.warehouse.entity;
 
 import java.io.Serializable;
 import java.util.Date;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 /**
  *
  * @author pawel_000
  */
+
+@Entity
+@Table(name="order_list")
 public class Order implements Serializable{
+    
+    @Id
+    @Column(name="order_id")
+    @GeneratedValue(strategy=GenerationType.AUTO)
     private int id;
+    
+    @Column(name="order_items")
     private String items;
+    @Column(name="when_order")
     private Date date;
+    
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "client_id")
     private Client client;
     
     public Order(){
