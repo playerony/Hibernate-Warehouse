@@ -7,6 +7,7 @@ package com.warehouse.dao.user;
 
 import com.opensymphony.xwork2.ActionSupport;
 import com.warehouse.entity.User;
+import com.warehouse.impl.UserDaoImpl;
 
 /**
  *
@@ -14,7 +15,7 @@ import com.warehouse.entity.User;
  */
 public abstract class AbstractUserAction extends ActionSupport {
     protected static final long serialVersionUID = 1L;    
-    protected UserDao userDao = new UserDao();
+    protected UserDao userDao = new UserDaoImpl();
     protected User user;
     
     @Override

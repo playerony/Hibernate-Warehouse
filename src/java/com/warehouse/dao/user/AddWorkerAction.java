@@ -5,6 +5,7 @@
  */
 package com.warehouse.dao.user;
 
+import com.warehouse.entity.User;
 import com.warehouse.utility.Validate;
 
 /**
@@ -57,8 +58,8 @@ public class AddWorkerAction extends AbstractUserAction {
      
     @Override
     public String execute() {
-        if(userDao.addWorker(user.getId(), user.getFirstname(), user.getLastname(), 
-                                          user.getLogin(), user.getPassword(), user.getPlace(),  user.getRank()))
+        if(userDao.addWorker(new User(user.getId(), user.getFirstname(), user.getLastname(), 
+                                          user.getLogin(), user.getPassword(), user.getPlace(),  user.getRank())))
             return SUCCESS;
         return INPUT;
     }
