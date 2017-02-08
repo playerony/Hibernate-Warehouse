@@ -5,6 +5,7 @@
  */
 package com.warehouse.entity;
 
+import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -19,7 +20,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="pallets_in_magazine")
-public class PalletsInMagazine {
+public class PalletsInMagazine implements Serializable{
     
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
