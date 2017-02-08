@@ -6,17 +6,34 @@
 package com.warehouse.entity;
 
 import java.util.Date;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 /**
  *
  * @author pawel_000
  */
+
+@Entity
+@Table(name="pallets_to_send")
 public class PalletsPacked {
+    
+    @Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
     private int id;
+    
+    @Column(name="worker_id")
     private int workerID;
+    @Column(name="client_id")
     private int clientID;
-    private String products;
+    @Column(name="whenMaked")
     private Date date;
+    
+    private String products;
     private String type;
     
     public PalletsPacked(){
