@@ -37,6 +37,11 @@ public class PalletsInMagazine implements Serializable{
         this.location = location;
     }
     
+    public PalletsInMagazine(String products, String location){
+        this.products = products;
+        this.location = location;
+    }
+    
     public PalletsInMagazine(int id, String products, String location){
         this.id = id;
         this.products = products;
