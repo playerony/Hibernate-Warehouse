@@ -6,6 +6,8 @@
 package com.warehouse.dao.packing;
 
 import com.warehouse.dao.picking.PickingDao;
+import com.warehouse.entity.PalletsPacked;
+import com.warehouse.impl.PickingDaoImpl;
 import java.util.Calendar;
 import java.util.Map;
 import org.apache.struts2.interceptor.SessionAware;
@@ -15,7 +17,7 @@ import org.apache.struts2.interceptor.SessionAware;
  * @author pawel_000
  */
 public class PackingButtonAction extends AbstractPackingAction implements SessionAware{
-    private PickingDao pickingDao = new PickingDao();
+    private PickingDao pickingDao = new PickingDaoImpl();
     private Map<String, Object> session;
 
     @Override
@@ -37,9 +39,9 @@ public class PackingButtonAction extends AbstractPackingAction implements Sessio
             pickingDao.deletePickedPallete(Integer.parseInt(String.valueOf(session.get("orderID"))));
         
         if(!pickingDao.getClientID(Integer.parseInt(String.valueOf(session.get("orderID")))).equals("error") && 
-                packingDao.createPackingPallete(0, Integer.parseInt((String) session.get("userID")), 
+                packingDao.createPackingPallete(new PalletsPacked(0, Integer.parseInt((String) session.get("userID")), 
                 Integer.parseInt(pickingDao.getClientID(Integer.parseInt(String.valueOf(session.get("orderID"))))), 
-                String.valueOf(session.get("order")), Calendar.getInstance().getTime(), "pallete"))
+                String.valueOf(session.get("order")), Calendar.getInstance().getTime(), "pallete")))
         {
             session.put("items", null);
             session.put("orderID", null);

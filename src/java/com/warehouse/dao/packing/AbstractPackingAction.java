@@ -8,6 +8,7 @@ package com.warehouse.dao.packing;
 import com.opensymphony.xwork2.ActionSupport;
 import com.warehouse.entity.PalleteInfo;
 import com.warehouse.entity.PalletsPicked;
+import com.warehouse.impl.PackingDaoImpl;
 
 /**
  *
@@ -16,7 +17,7 @@ import com.warehouse.entity.PalletsPicked;
 public abstract class AbstractPackingAction extends ActionSupport{
     protected PalletsPicked palletsPicked;
     protected PalleteInfo palleteInfo;
-    protected PackingDao packingDao = new PackingDao();
+    protected PackingDao packingDao = new PackingDaoImpl();
     
     @Override
      public abstract void validate();
