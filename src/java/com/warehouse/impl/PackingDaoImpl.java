@@ -12,7 +12,6 @@ import com.warehouse.entity.PalletsPicked;
 import com.warehouse.service.PackingService;
 import com.warehouse.utility.Validate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Map;
 import org.hibernate.SessionFactory;
 
