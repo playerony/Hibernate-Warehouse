@@ -11,6 +11,10 @@ import com.warehouse.entity.Order;
 import com.warehouse.entity.PalleteInfo;
 import com.warehouse.entity.PalletsInMagazine;
 import com.warehouse.impl.MagazineDaoImpl;
+import com.warehouse.impl.OrderDaoImpl;
+import com.warehouse.impl.PickingDaoImpl;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
  *
@@ -21,9 +25,17 @@ public abstract class AbstractPickingAction extends ActionSupport{
     protected Client client;
     protected PalleteInfo palleteInfo;
     protected PalletsInMagazine palletsInMagazine;
-    protected OrderDao orderDao = new OrderDao();
-    protected MagazineDao magazineDao = new MagazineDaoImpl();
-    protected PickingDao pickingDao = new PickingDao();
+    protected OrderDao orderDao;
+    protected MagazineDao magazineDao;
+    protected PickingDao pickingDao;
+    
+    public AbstractPickingAction(){
+        ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+        
+        orderDao = context.getBean(OrderDaoImpl.class);
+        magazineDao = context.getBean(MagazineDaoImpl.class);
+        pickingDao = context.getBean(PickingDaoImpl.class);
+    }
     
     @Override
      public abstract void validate();
