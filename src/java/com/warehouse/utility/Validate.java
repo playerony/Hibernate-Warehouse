@@ -18,23 +18,26 @@ public class Validate {
     public static boolean checkNumbersInString(String phrase) {
         boolean result = true;
         
+        // Check all marks from ! to @ (Ascii table)
         if (phrase.length() >= 1) {
             for (int i = 33; i < 65; i++)
                 if (phrase.contains(String.valueOf(i))) {
                     result = false;
-                    break;/*contains*/
+                    break;
                 }
             
+            // Check all marks from [ to ' (Ascii table)
             for (int i = 91; i < 97; i++)
                 if (phrase.contains(String.valueOf(i))) {
                     result = false;
-                    break;/*contains*/
+                    break;
                 }
 
+            // Check all the other marks (Ascii table)
             for (int i = 123; i < 256; i++)
                 if (phrase.contains(String.valueOf(i))) {
                     result = false;
-                    break;/*contains*/
+                    break;
                 }
         }
         else
@@ -43,6 +46,7 @@ public class Validate {
         return result;
     }
     
+    // This function get info from 1(5) when first is item_id and the last one is amout of the product
     public static ArrayList<PalleteInfo> getPalleteInformations(String phrase){
         ArrayList<PalleteInfo> result = new ArrayList<>();
 		
