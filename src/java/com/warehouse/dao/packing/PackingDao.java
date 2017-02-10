@@ -8,15 +8,7 @@ package com.warehouse.dao.packing;
 import com.warehouse.entity.PalleteInfo;
 import com.warehouse.entity.PalletsPacked;
 import com.warehouse.entity.PalletsPicked;
-import com.warehouse.utility.HibernateUtil;
-import com.warehouse.utility.Validate;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 import java.util.Map;
-import org.hibernate.HibernateException;
-import org.hibernate.Query;
-import org.hibernate.Session;
 
 /**
  *
