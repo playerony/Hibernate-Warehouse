@@ -25,7 +25,7 @@
             <s:textfield name="user.firstname" label="Firstname "/>
             <s:textfield name="user.lastname" label="Lastname "/>
             <s:select name="user.place" list="{'Gliwice', 'Zabrze', 'Gdynia', 'Torun'}" emptyOption="false" label="Select place "/>
-            <s:select name="user.rank" list="{'Admin', 'Worker'}" emptyOption="false" label="Select rank "/>
+            <s:select name="user.rank" list="{'admin', 'worker'}" emptyOption="false" label="Select rank "/>
 
             <s:submit value="Add Worker"/>
         </s:form>
