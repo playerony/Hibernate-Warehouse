@@ -5,6 +5,7 @@
  */
 package com.warehouse.dao.picking;
 
+import com.warehouse.entity.PalletsPicked;
 import java.util.Map;
 import org.apache.struts2.interceptor.SessionAware;
 
@@ -35,9 +36,9 @@ public class PickingButtonAction extends AbstractPickingAction implements Sessio
         
         if(!orderDao.getClientID(Integer.parseInt(String.valueOf(session.get("orderID")))).equals("error") && 
             (String)session.get("order") != null &&
-            pickingDao.createPickingPallete(0, Integer.parseInt(String.valueOf(session.get("userID"))), 
+            pickingDao.createPickingPallete(new PalletsPicked(0, Integer.parseInt(String.valueOf(session.get("userID"))), 
             Integer.parseInt(orderDao.getClientID(Integer.parseInt(String.valueOf(session.get("orderID"))))), 
-            String.valueOf(session.get("order"))))
+            String.valueOf(session.get("order")))))
         {
             session.put("items", null);
             session.put("orderID", null);
