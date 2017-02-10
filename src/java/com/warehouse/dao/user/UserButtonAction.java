@@ -21,6 +21,7 @@ public class UserButtonAction extends AbstractUserAction{
         return SUCCESS;
     }
     
+    // Back is only for admin by add and delete user
     public String backButtonAction(){
         return "admin";
     }

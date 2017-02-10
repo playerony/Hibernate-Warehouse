@@ -17,17 +17,14 @@ public class LoginAction extends AbstractUserAction implements SessionAware {
     
     @Override
     public void validate() {
-        if (user.getLogin().length() == (0)) {
-            addActionError("Login is required!");
-        }
+        if (user.getLogin().length() == (0)) 
+            addActionError("Login is empty!");
         
-        if (user.getPassword().length() == (0)) {
-            addActionError("Password is required!");
-        }
+        if (user.getPassword().length() == (0)) 
+            addActionError("Password is empty!");
         
-        if (!userDao.find(user.getLogin(), user.getPassword())) {
-            addActionError("Wrong login or password!");
-        }
+        if (!userDao.find(user.getLogin(), user.getPassword())) 
+            addActionError("This user doesn't exist!");
     }
  
     @Override
@@ -50,12 +47,12 @@ public class LoginAction extends AbstractUserAction implements SessionAware {
             return "error";
     }
 
-    public Map<String, Object> getSession() {
-        return session;
-    }
-
     @Override
     public void setSession(Map<String, Object> map) {
          this.session = map;
+    }
+    
+    public Map<String, Object> getSession() {
+        return session;
     }
 }

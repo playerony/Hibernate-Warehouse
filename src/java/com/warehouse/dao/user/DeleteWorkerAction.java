@@ -15,21 +15,17 @@ public class DeleteWorkerAction extends AbstractUserAction {
 
     @Override
     public void validate() {
-        if (user.getFirstname().length() == (0)) {
+        if (user.getFirstname().length() == (0)) 
             addActionError("Firstname is required!");
-        }
         
-        if (!Validate.checkNumbersInString(user.getFirstname())) {
+        if (!Validate.checkNumbersInString(user.getFirstname())) 
             addActionError("Wrong firstname");
-        }
         
-        if (user.getLastname().length() == (0)) {
+        if (user.getLastname().length() == (0)) 
             addActionError("Lastname is required!");
-        }
         
-        if (!Validate.checkNumbersInString(user.getLastname())) {
+        if (!Validate.checkNumbersInString(user.getLastname())) 
             addActionError("Wrong lastname!");
-        }
     }
 
     @Override

@@ -15,45 +15,35 @@ import com.warehouse.utility.Validate;
 public class AddWorkerAction extends AbstractUserAction {
     @Override
      public void validate() {
-        if (user.getLogin().length() == (0)) {
+        if (user.getLogin().length() == (0)) 
             addActionError("Login is required");
-        }
         
-        if (user.getLogin().length() > (10)) {
+        if (user.getLogin().length() > (10)) 
             addActionError("Login is too long");
-        }
         
-        if (user.getPassword().length() == (0)) {
+        if (user.getPassword().length() == (0))
             addActionError("Password is required");
-        }
         
-        if (user.getPassword().length() > (10)) {
+        if (user.getPassword().length() > (10)) 
             addActionError("Password is too long");
-        }
         
-        if (user.getFirstname().length() == (0)) {
+        if (user.getFirstname().length() == (0)) 
             addActionError("Firstname is required");
-        }
         
-        if (!Validate.checkNumbersInString(user.getFirstname())) {
-            addActionError("Firstname has wrong marks");
-        }
+        if (!Validate.checkNumbersInString(user.getFirstname())) 
+            addActionError("Firstname includes wrong marks");
         
-         if (user.getLastname().length() == (0)) {
+        if (user.getLastname().length() == (0))
             addActionError("Lastname is required");
-        }
         
-        if (!Validate.checkNumbersInString(user.getLastname())) {
-            addActionError("Lastname has wrong marks");
-        }
+        if (!Validate.checkNumbersInString(user.getLastname())) 
+            addActionError("Lastname includes wrong marks");
         
-        if(user.getLastname().equals(user.getFirstname())){
+        if(user.getLastname().equals(user.getFirstname()))
             addActionError("Firstname = Lastname");
-        }
         
-        if (userDao.findUserByLogin(user.getLogin())) {
+        if (userDao.findUserByLogin(user.getLogin())) 
             addActionError("This login exist in database!!!");
-        }
     }
      
     @Override
