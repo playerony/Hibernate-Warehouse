@@ -9,6 +9,9 @@ import com.opensymphony.xwork2.ActionSupport;
 import com.warehouse.entity.PalleteInfo;
 import com.warehouse.entity.PalletsPicked;
 import com.warehouse.impl.PackingDaoImpl;
+import com.warehouse.impl.UserDaoImpl;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
  *
@@ -17,7 +20,13 @@ import com.warehouse.impl.PackingDaoImpl;
 public abstract class AbstractPackingAction extends ActionSupport{
     protected PalletsPicked palletsPicked;
     protected PalleteInfo palleteInfo;
-    protected PackingDao packingDao = new PackingDaoImpl();
+    protected PackingDao packingDao;
+    
+    public AbstractPackingAction(){
+        ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+        
+        packingDao = context.getBean(PackingDaoImpl.class);
+    }
     
     @Override
      public abstract void validate();
