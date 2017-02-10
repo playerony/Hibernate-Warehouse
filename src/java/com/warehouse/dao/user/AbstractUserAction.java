@@ -8,6 +8,8 @@ package com.warehouse.dao.user;
 import com.opensymphony.xwork2.ActionSupport;
 import com.warehouse.entity.User;
 import com.warehouse.impl.UserDaoImpl;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
  *
@@ -15,8 +17,14 @@ import com.warehouse.impl.UserDaoImpl;
  */
 public abstract class AbstractUserAction extends ActionSupport {
     protected static final long serialVersionUID = 1L;    
-    protected UserDao userDao = new UserDaoImpl();
+    protected UserDao userDao;
     protected User user;
+    
+    public AbstractUserAction(){
+        ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+        
+        userDao = context.getBean(UserDaoImpl.class);
+    }
     
     @Override
      public abstract void validate();
@@ -27,7 +35,7 @@ public abstract class AbstractUserAction extends ActionSupport {
         return user;
     }
  
-    public void setUser(final User user) {
+    public void setUser(User user) {
         this.user = user;
     } 
 }
