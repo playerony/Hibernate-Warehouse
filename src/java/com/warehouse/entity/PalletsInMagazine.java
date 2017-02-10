@@ -6,7 +6,6 @@
 package com.warehouse.entity;
 
 import java.io.Serializable;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -30,11 +29,6 @@ public class PalletsInMagazine implements Serializable{
     
     public PalletsInMagazine(){
         
-    }
-    
-    public PalletsInMagazine(int id, String location){
-        this.id = id;
-        this.location = location;
     }
     
     public PalletsInMagazine(String products, String location){

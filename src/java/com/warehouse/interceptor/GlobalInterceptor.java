@@ -29,6 +29,7 @@ public class GlobalInterceptor implements Interceptor{
 
     @Override
     public String intercept(ActionInvocation invocation) throws Exception {
+        // session is here as cache memory
         Map<String,Object> session = invocation.getInvocationContext().getSession();
         
         Object action = invocation.getAction();

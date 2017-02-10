@@ -15,7 +15,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
@@ -42,17 +41,6 @@ public class Order implements Serializable{
     
     public Order(){
         
-    }
-    
-    public Order(int id, String items){
-        this.id = id;
-        this.items = items;
-    }
-    
-    public Order(int id, String items, Date date){
-        this.id = id;
-        this.items = items;
-        this.date = date;
     }
     
     public Order(int id, String items, Date date, Client client){
