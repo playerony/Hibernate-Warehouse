@@ -6,19 +6,38 @@
 package com.warehouse.entity;
 
 import java.io.Serializable;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 /**
  *
  * @author pawel_000
  */
 
+@Entity
+@Table(name="worker")
 public class User implements Serializable{
+    
+    @Id
+    @Column(name="worker_id")
+    @GeneratedValue(strategy=GenerationType.AUTO)
     private int id;
+    
+    @Column(name="worker_firstname")
     private String firstname;
+    @Column(name="worker_lastname")
     private String lastname;
+    @Column(name="work_place")
     private String place;
+    @Column(name="worker_login")
     private String login;
+    @Column(name="worker_password")
     private String password;
+    @Column(name="worker_rank")
     private String rank;
     
     public User(){
