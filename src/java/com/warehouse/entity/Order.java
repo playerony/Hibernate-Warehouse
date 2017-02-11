@@ -10,11 +10,10 @@ import java.util.Date;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
@@ -26,17 +25,9 @@ import javax.persistence.Table;
 @Table(name="order_list")
 public class Order implements Serializable{
     
-    @Id
-    @Column(name="order_id")
-    @GeneratedValue(strategy=GenerationType.AUTO)
     private int id;
-    
-    @Column(name="order_items")
     private String items;
-    @Column(name="when_order")
     private Date date;
-    
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Client client;
     
     public Order(){
@@ -50,6 +41,9 @@ public class Order implements Serializable{
         this.client = client;
     }
 
+    @Id
+    @GeneratedValue
+    @Column(name="order_id")
     public int getId() {
         return id;
     }
@@ -58,6 +52,7 @@ public class Order implements Serializable{
         this.id = id;
     }
 
+    @Column(name="order_items")
     public String getItems() {
         return items;
     }
@@ -66,6 +61,7 @@ public class Order implements Serializable{
         this.items = items;
     }
 
+    @Column(name="when_order")
     public Date getDate() {
         return date;
     }
@@ -74,6 +70,8 @@ public class Order implements Serializable{
         this.date = date;
     }
 
+    @JoinColumn(name="client_id") 
+    @OneToOne(cascade = CascadeType.ALL)
     public Client getClient() {
         return client;
     }
