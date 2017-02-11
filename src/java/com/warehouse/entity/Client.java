@@ -22,16 +22,9 @@ import javax.persistence.Table;
 @Table(name="client")
 public class Client implements Serializable {
     
-    @Id
-    @Column(name="client_id")
-    @GeneratedValue(strategy=GenerationType.AUTO)
     private int id;
-    
-    @Column(name="client_name")
     private String name;
-    @Column(name="client_address")
     private String address;
-    @Column(name="client_phone")
     private String phone;
     
     public Client(){
@@ -56,6 +49,9 @@ public class Client implements Serializable {
         this.phone = phone;
     }
     
+    @Id
+    @GeneratedValue
+    @Column(name="client_id")
     public int getId() {
         return id;
     }
@@ -64,6 +60,7 @@ public class Client implements Serializable {
         this.id = id;
     }
 
+    @Column(name="client_name", nullable = false)
     public String getName() {
         return name;
     }
@@ -72,6 +69,7 @@ public class Client implements Serializable {
         this.name = name;
     }
 
+    @Column(name="client_address", nullable = false)
     public String getAddress() {
         return address;
     }
@@ -80,6 +78,7 @@ public class Client implements Serializable {
         this.address = address;
     }
 
+    @Column(name="client_phone", nullable = false, length=11)
     public String getPhone() {
         return phone;
     }
