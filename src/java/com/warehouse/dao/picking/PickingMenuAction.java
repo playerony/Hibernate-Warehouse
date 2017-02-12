@@ -17,42 +17,34 @@ public class PickingMenuAction extends AbstractPickingAction implements SessionA
 
     @Override
     public void validate() {
-        if(String.valueOf(palleteInfo.getId()).equals("0")){
+        if(String.valueOf(palleteInfo.getId()).equals("0"))
             addActionError("ID is not a number");
-        }
         
-        if(palleteInfo.getId() < 0) {
+        if(palleteInfo.getId() < 0) 
             addActionError("Wrong ID");
-        }
         
-        if(String.valueOf(palleteInfo.getAmount()).equals("0")){
+        if(String.valueOf(palleteInfo.getAmount()).equals(new String()))
             addActionError("Amount is not a number");
-        }
         
-        if(palleteInfo.getAmount() < 0) {
+        if(palleteInfo.getAmount() < 0) 
             addActionError("Wrong amount");
-        }
         
-        if(palletsInMagazine.getLocation().length() <= (0)){
+        if(palletsInMagazine.getLocation().length() <= (0))
             addActionError("Wrong location");
-        }
         
-        if(!magazineDao.checkLocation(palletsInMagazine.getLocation())){
+        if(!magazineDao.checkLocation(palletsInMagazine.getLocation()))
             addActionError("Can't find this location");
-        }
         
         String value = magazineDao.getProductsByLocation(palletsInMagazine.getLocation());
-        
-        if(!magazineDao.verifyILocationByItems(value, palleteInfo)){
+        if(!magazineDao.verifyILocationByItems(value, palleteInfo))
             addActionError("Too low product by location");
-        }
     }
 
     @Override
     public String execute() {
-        if(pickingDao.nextItemButtonAction(palleteInfo, palletsInMagazine, session)){
+        if(pickingDao.nextItemButtonAction(palleteInfo, palletsInMagazine, magazineDao, session))
             return SUCCESS;
-        }else{
+        else{
             addActionError("Some problems by adding next item!");
             
             return INPUT;

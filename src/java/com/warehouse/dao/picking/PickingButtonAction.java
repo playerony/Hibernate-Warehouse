@@ -28,18 +28,16 @@ public class PickingButtonAction extends AbstractPickingAction implements Sessio
     
     public String finishButtonAction(){
         if(String.valueOf(session.get("items")).length() > 0){
-            if(!orderDao.updateOrderValue(Integer.parseInt(String.valueOf(session.get("orderID"))), String.valueOf(session.get("items")))){
+            if(!orderDao.updateOrderValue(Integer.parseInt(String.valueOf(session.get("orderID"))), String.valueOf(session.get("items"))))
                 return INPUT;
-            }
         }else
             orderDao.deleteOrder(Integer.parseInt(String.valueOf(session.get("orderID"))));
         
-        if(!orderDao.getClientID(Integer.parseInt(String.valueOf(session.get("orderID")))).equals("error") && 
-            (String)session.get("order") != null &&
+        if(Integer.parseInt(String.valueOf(session.get("clientID"))) > -1 && String.valueOf(session.get("order")) != null &&
             pickingDao.createPickingPallete(new PalletsPicked(0, Integer.parseInt(String.valueOf(session.get("userID"))), 
-            Integer.parseInt(orderDao.getClientID(Integer.parseInt(String.valueOf(session.get("orderID"))))), 
-            String.valueOf(session.get("order")))))
+            Integer.parseInt(String.valueOf(session.get("clientID"))), String.valueOf(session.get("order")))) )
         {
+            session.put("clientID", null);
             session.put("items", null);
             session.put("orderID", null);
             session.put("order", null);
@@ -48,9 +46,8 @@ public class PickingButtonAction extends AbstractPickingAction implements Sessio
 
             return (String) session.get("rank");
         }else{
-            if(orderDao.updateOrderValue(Integer.parseInt(String.valueOf(session.get("orderID"))), String.valueOf(session.get("safe")))){
+            if(orderDao.updateOrderValue(Integer.parseInt(String.valueOf(session.get("orderID"))), String.valueOf(session.get("safe"))))
                 return INPUT;
-            }
             
             return "error";
         }

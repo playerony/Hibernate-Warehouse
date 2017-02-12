@@ -17,13 +17,11 @@ public class CheckOrderNumber extends AbstractPickingAction implements SessionAw
 
     @Override
     public void validate() {
-        if(String.valueOf(order.getId()).equals("0")) {
-            addActionError("It's not a number!!");
-        }
+        if(String.valueOf(order.getId()).equals("0")) 
+            addActionError("It's not a number or it equal zero !");
         
-        if(order.getId() <= 0) {
+        if(order.getId() < 0) 
             addActionError("Wrong number");
-        }
     }
 
     @Override
@@ -32,12 +30,12 @@ public class CheckOrderNumber extends AbstractPickingAction implements SessionAw
             session.put("orderID", String.valueOf(order.getId()));
             session.put("items", orderDao.getProducts(order.getId()));
             session.put("safe", orderDao.getProducts(order.getId()));
+            session.put("clientID", orderDao.getClientID(Integer.parseInt((String) session.get("orderID"))));
             session.put("order", null);
             
             return SUCCESS;
-        }else{
+        }else
             return INPUT;
-        }
     }
 
     public Map<String, Object> getSession() {
