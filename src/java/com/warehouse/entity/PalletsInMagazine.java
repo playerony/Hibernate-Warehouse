@@ -21,8 +21,6 @@ import javax.persistence.Table;
 @Table(name="pallets_in_magazine")
 public class PalletsInMagazine implements Serializable{
     
-    @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
     private int id;
     private String products;
     private String location;
@@ -31,17 +29,14 @@ public class PalletsInMagazine implements Serializable{
         
     }
     
-    public PalletsInMagazine(String products, String location){
-        this.products = products;
-        this.location = location;
-    }
-    
     public PalletsInMagazine(int id, String products, String location){
         this.id = id;
         this.products = products;
         this.location = location;
     }
 
+    @Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
     public int getId() {
         return id;
     }
