@@ -23,19 +23,12 @@ import javax.persistence.Table;
 @Table(name="pallets_to_send")
 public class PalletsPacked implements Serializable{
     
-    @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
     private int id;
-    
-    @Column(name="worker_id")
     private int workerID;
-    @Column(name="client_id")
     private int clientID;
-    @Column(name="whenMaked")
-    private Date date;
-    
     private String products;
     private String type;
+    private Date date;
     
     public PalletsPacked(){
         
@@ -57,6 +50,8 @@ public class PalletsPacked implements Serializable{
         this.type = type;
     }
 
+    @Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
     public int getId() {
         return id;
     }
@@ -65,6 +60,7 @@ public class PalletsPacked implements Serializable{
         this.id = id;
     }
 
+    @Column(name="worker_id")
     public int getWorkerID() {
         return workerID;
     }
@@ -73,6 +69,7 @@ public class PalletsPacked implements Serializable{
         this.workerID = workerID;
     }
 
+    @Column(name="client_id")
     public int getClientID() {
         return clientID;
     }
@@ -89,6 +86,7 @@ public class PalletsPacked implements Serializable{
         this.products = products;
     }
     
+    @Column(name="whenMaked")
     public Date getDate() {
         return date;
     }
