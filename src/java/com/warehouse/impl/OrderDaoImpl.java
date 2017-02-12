@@ -23,44 +23,53 @@ public class OrderDaoImpl implements OrderDao{
 
     @Override
     public boolean checkOrderById(int id) {
-        Order order = OrderService.list(sessionFactory).get(id);
+        for(Order o : OrderService.list(sessionFactory))
+            if(o.getId() == id)
+                return true;
         
-        return order != null;
+        return false;
     }
 
     @Override
     public String getProducts(int id) {
-        return OrderService.list(sessionFactory).get(id).getItems();
+        for(Order o : OrderService.list(sessionFactory))
+            if(o.getId() == id)
+                return o.getItems();
+        
+        return null;
     }
 
     @Override
-    public String getClientID(int orderID) {
-        return String.valueOf(OrderService.list(sessionFactory).get(orderID).getClient().getId());
+    public int getClientID(int id) {
+        for(Order o : OrderService.list(sessionFactory))
+            if(o.getId() == id)
+                return o.getClient().getId();
+        
+        return -1;
     }
 
     @Override
     public boolean updateOrderValue(int id, String phrase) {
-        try{
-            Order order = OrderService.list(sessionFactory).get(id);
-            order.setItems(phrase);
-
-            OrderService.update(order, sessionFactory);
-        }catch(Exception e){
-            return false;
-        }
+        for(Order o : OrderService.list(sessionFactory))
+            if(o.getId() == id){
+                o.setItems(phrase);
+                OrderService.update(o, sessionFactory);
+                
+                return true;
+            }
         
-        return true;
+        return false;
     }
 
     @Override
     public boolean deleteOrder(int id) {
-        try{
-            OrderService.delete(OrderService.list(sessionFactory).get(id), sessionFactory);
-        }catch(Exception e){
-            return false;
-        }
+         for(Order o : OrderService.list(sessionFactory))
+            if(o.getId() == id){
+                OrderService.delete(o, sessionFactory);
+                return true;
+            }
         
-        return true;
+        return false;
     }
     
 }
