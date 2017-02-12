@@ -10,11 +10,18 @@ import java.util.Date;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
+import static javax.persistence.GenerationType.TABLE;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 /**
  *
@@ -42,8 +49,8 @@ public class Order implements Serializable{
     }
 
     @Id
-    @GeneratedValue
     @Column(name="order_id")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     public int getId() {
         return id;
     }
@@ -70,8 +77,8 @@ public class Order implements Serializable{
         this.date = date;
     }
 
-    @JoinColumn(name="client_id") 
     @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "client_id")
     public Client getClient() {
         return client;
     }
