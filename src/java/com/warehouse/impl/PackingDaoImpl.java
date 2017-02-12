@@ -6,6 +6,7 @@
 package com.warehouse.impl;
 
 import com.warehouse.dao.packing.PackingDao;
+import com.warehouse.dao.picking.PickingDao;
 import com.warehouse.entity.PalleteInfo;
 import com.warehouse.entity.PalletsPacked;
 import com.warehouse.entity.PalletsPicked;
@@ -27,26 +28,25 @@ public class PackingDaoImpl implements PackingDao{
     }
 
     @Override
-    public boolean packButtonAction(PalletsPicked palletsPicked, PalleteInfo palleteInfo, Map<String, Object> session) {
+    public boolean packButtonAction(PalletsPicked palletsPicked, PalleteInfo palleteInfo, PickingDao pickingDao, Map<String, Object> session) {
         boolean res = false;
         
         try{
             String products = null;
             String result = palleteInfo.getId() + "(" + palleteInfo.getAmount() + ")";
-            String orderPhrase = (String) session.get("order");
-
-            if((String) session.get("check") == null){
-                session.put("items", getProducts(palletsPicked.getId()));
-                session.put("safe", getProducts(palletsPicked.getId()));
+            String orderPhrase = String.valueOf(session.get("order"));
+            
+            if(!String.valueOf(session.get("check")).isEmpty()){
+                session.put("items", pickingDao.getProducts(palletsPicked.getId()));
+                session.put("safe", pickingDao.getProducts(palletsPicked.getId()));
                 session.put("check", "true");
                 session.put("orderID", palletsPicked.getId());
-                products = getProducts(palletsPicked.getId());
-            }else{
-                products = (String) session.get("items");
-            }
+                products = pickingDao.getProducts(palletsPicked.getId());
+            }else
+                products = String.valueOf(session.get("items"));
 
-            if(products != null){
-                ArrayList<PalleteInfo> palleteItems = Validate.getPalleteInformations((String) session.get("items"));
+            if(!products.isEmpty()){
+                ArrayList<PalleteInfo> palleteItems = Validate.getPalleteInformations(products);
 
                 PalleteInfo pal = null;
                 for(PalleteInfo p : palleteItems)
@@ -54,7 +54,7 @@ public class PackingDaoImpl implements PackingDao{
                         pal = p;
                         break;
                     }
-
+                
                     if(pal != null){
                         int value = pal.getAmount() - palleteInfo.getAmount();
                         pal.setAmount(value);
@@ -62,17 +62,14 @@ public class PackingDaoImpl implements PackingDao{
                         if(value <= 0)
                             palleteItems.remove(pal);
 
-                        String phr = "";
+                        String phr = null;
                         phr = palleteItems.stream().filter((p) -> (p != null)).map((p) -> (p.getId() + "(" + p.getAmount() + ")" + ",")).reduce(phr, String::concat);   
                         session.put("items", phr);
 
-                        if(orderPhrase != null)
+                        if(!orderPhrase.isEmpty())
                             session.put("order", orderPhrase + "," + result);
                         else
                             session.put("order", result);
-
-                        System.out.print(session.get("items"));
-                        System.out.print(session.get("order"));
 
                             res = true;
                     }
@@ -86,7 +83,11 @@ public class PackingDaoImpl implements PackingDao{
 
     @Override
     public String getProducts(int id) {
-        return PackingService.list(sessionFactory).get(id).getProducts();
+        for(PalletsPacked p : PackingService.list(sessionFactory))
+            if(p.getId() == id)
+                return p.getProducts();
+        
+        return null;
     }
 
     @Override
