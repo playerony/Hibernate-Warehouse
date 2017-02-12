@@ -26,20 +26,18 @@ public class MagazineDaoImpl implements MagazineDao{
     
     @Override
     public boolean checkLocation(String location) {
-        for(PalletsInMagazine p : MagazineService.list(sessionFactory)){
+        for(PalletsInMagazine p : MagazineService.list(sessionFactory))
             if(p.getLocation().equals(location))
                 return true;
-        }
         
         return false;
     }
 
     @Override
     public String getProductsByLocation(String location) {
-        for(PalletsInMagazine p : MagazineService.list(sessionFactory)){
+        for(PalletsInMagazine p : MagazineService.list(sessionFactory))
             if(p.getLocation().equals(location))
                 return p.getProducts();
-        }
         
         return "error";
     }
@@ -48,21 +46,24 @@ public class MagazineDaoImpl implements MagazineDao{
     public boolean verifyILocationByItems(String products, PalleteInfo palleteInfo) {
         ArrayList<PalleteInfo> palleteItems = Validate.getPalleteInformations(products);
         for(PalleteInfo p : palleteItems)
-                if(palleteInfo.getId() == p.getId() && palleteInfo.getAmount() <= p.getAmount()){
+                if(palleteInfo.getId() == p.getId() && palleteInfo.getAmount() <= p.getAmount())
                     return true;
-                }
         
         return false;
     }
 
     @Override
     public boolean updateLoctionItems(String location, String items) {
-        try{
-            MagazineService.update(new PalletsInMagazine(location, items), sessionFactory);
-        }catch(Exception e){
-            return false;
+        int id = -1;
+        for(PalletsInMagazine p : MagazineService.list(sessionFactory))
+                if(p.getLocation().contains(location))
+                    id = p.getId();
+        
+        if(id != -1){
+            MagazineService.update(new PalletsInMagazine(id, items, location), sessionFactory);
+            return true;
         }
         
-        return true;
+        return false;
     }
 }
