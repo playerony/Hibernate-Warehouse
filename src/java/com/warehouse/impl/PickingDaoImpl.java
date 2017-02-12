@@ -28,8 +28,7 @@ public class PickingDaoImpl implements PickingDao{
     }
 
     @Override
-    public boolean nextItemButtonAction(PalleteInfo palleteInfo, PalletsInMagazine palletsInMagazine, Map<String, Object> session) {
-        MagazineDao magazineDao = new MagazineDaoImpl();
+    public boolean nextItemButtonAction(PalleteInfo palleteInfo, PalletsInMagazine palletsInMagazine, MagazineDao magazineDao, Map<String, Object> session) {
         boolean res = false;
         
         try{
@@ -57,7 +56,7 @@ public class PickingDaoImpl implements PickingDao{
                 phr = palleteItems.stream().filter((p) -> (p != null)).map((p) -> (p.getId() + "(" + p.getAmount() + ")" + ",")).reduce(phr, String::concat);   
                 session.put("items", phr);
 
-                if(orderPhrase != null)
+                if(!orderPhrase.isEmpty())
                     session.put("order", orderPhrase + "," + result);
                 else
                     session.put("order", result);
@@ -89,32 +88,44 @@ public class PickingDaoImpl implements PickingDao{
     }
 
     @Override
-    public String getClientID(int orderID) {
-        return String.valueOf(PickingService.list(sessionFactory).get(orderID).getClientID());
+    public String getClientID(int id) {
+        for(PalletsPicked p : PickingService.list(sessionFactory))
+            if(p.getId() == id)
+                return String.valueOf(p.getClientID());
+        
+        return "error";
     }
 
     @Override
     public boolean updatePickedPallete(int id, String phrase) {
-        try{
-            PalletsPicked palletsPicked = PickingService.list(sessionFactory).get(id);
-            palletsPicked.setProducts(phrase);
-            
-            PickingService.update(palletsPicked, sessionFactory);
-        }catch(Exception e){
-            return false;
-        }
+        for(PalletsPicked p : PickingService.list(sessionFactory))
+            if(p.getId() == id){
+                p.setProducts(phrase);
+                PickingService.update(p, sessionFactory);
+                
+                return true;
+            }
         
-        return true;
+        return false;
     }
 
     @Override
     public boolean deletePickedPallete(int id) {
-        try{
-            PickingService.update(PickingService.list(sessionFactory).get(id), sessionFactory);
-        }catch(Exception e){
-            return false;
-        }
+        for(PalletsPicked p : PickingService.list(sessionFactory))
+            if(p.getId() == id){
+                PickingService.delete(p, sessionFactory);
+                return true;
+            }
         
-        return true;
+        return false;
+    }
+    
+    @Override
+    public String getProducts(int id){
+        for(PalletsPicked p : PickingService.list(sessionFactory))
+            if(p.getId() == id)
+                return p.getProducts();
+        
+        return null;
     }
 }
