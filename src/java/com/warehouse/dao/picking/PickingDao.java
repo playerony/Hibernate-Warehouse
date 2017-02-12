@@ -15,13 +15,15 @@ import java.util.Map;
  * @author pawel_000
  */
 public interface PickingDao {
-    public boolean nextItemButtonAction(final PalleteInfo palleteInfo, final PalletsInMagazine palletsInMagazine, Map<String, Object> session);
+    public boolean nextItemButtonAction(PalleteInfo palleteInfo, PalletsInMagazine palletsInMagazinev, MagazineDao magazineDao, Map<String, Object> session);
     
     public boolean createPickingPallete(PalletsPicked palletsPicked);
-    
-    public String getClientID(int orderID);
     
     public boolean updatePickedPallete(int id, String phrase);
     
     public boolean deletePickedPallete(int id);
+    
+    public String getClientID(int orderID);
+    
+    public String getProducts(int id);
 }

@@ -14,9 +14,9 @@ import com.warehouse.entity.PalleteInfo;
 public interface MagazineDao {
     public boolean checkLocation(String location);
     
-    public String getProductsByLocation(String location);
-    
     public boolean verifyILocationByItems(String products, PalleteInfo palleteInfo);
     
     public boolean updateLoctionItems(String location, String items);
+    
+    public String getProductsByLocation(String location);
 }

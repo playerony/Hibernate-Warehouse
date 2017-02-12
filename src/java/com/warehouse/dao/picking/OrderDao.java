@@ -12,11 +12,11 @@ package com.warehouse.dao.picking;
 public interface OrderDao {
     public boolean checkOrderById(int id);
     
-    public String getProducts(int id);
-    
-    public String getClientID(int orderID);
-    
     public boolean updateOrderValue(int id, String phrase);
     
     public boolean deleteOrder(int id);
+    
+    public String getProducts(int id);
+    
+    public int getClientID(int id);
 }
