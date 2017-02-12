@@ -22,14 +22,9 @@ import javax.persistence.Table;
 @Table(name="pallets_picked")
 public class PalletsPicked implements Serializable{
     
-    @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
     private int id;
-    @Column(name="worker_id")
     private int workerID;
-    @Column(name="client_id")
     private int clientID;
-    
     private String products;
     
     public PalletsPicked(){
@@ -43,6 +38,8 @@ public class PalletsPicked implements Serializable{
         this.products = products;
     }
 
+    @Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
     public int getId() {
         return id;
     }
@@ -51,6 +48,7 @@ public class PalletsPicked implements Serializable{
         this.id = id;
     }
 
+    @Column(name="worker_id")
     public int getWorkerID() {
         return workerID;
     }
@@ -59,6 +57,7 @@ public class PalletsPicked implements Serializable{
         this.workerID = workerID;
     }
 
+    @Column(name="client_id")
     public int getClientID() {
         return clientID;
     }
