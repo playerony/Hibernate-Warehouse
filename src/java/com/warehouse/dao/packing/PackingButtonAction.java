@@ -17,7 +17,6 @@ import org.apache.struts2.interceptor.SessionAware;
  * @author pawel_000
  */
 public class PackingButtonAction extends AbstractPackingAction implements SessionAware{
-    private PickingDao pickingDao = new PickingDaoImpl();
     private Map<String, Object> session;
 
     @Override
@@ -31,17 +30,21 @@ public class PackingButtonAction extends AbstractPackingAction implements Sessio
     }
     
     public String finishButtonAction(){
+        int id = 0;
+        int userID = Integer.parseInt(String.valueOf(session.get("userID")));
+        String orderID = String.valueOf(session.get("orderID"));
+        String clientID = pickingDao.getClientID(Integer.parseInt(String.valueOf(session.get("orderID"))));
+        String phrase = String.valueOf(session.get("order"));
+        
         if(String.valueOf(session.get("items")).length() > 0){
-            if(!pickingDao.updatePickedPallete(Integer.parseInt(String.valueOf(session.get("orderID"))), String.valueOf(session.get("items")))){
+            if(!pickingDao.updatePickedPallete(Integer.parseInt(orderID), String.valueOf(session.get("items"))))
                 return INPUT;
-            }
         }else
             pickingDao.deletePickedPallete(Integer.parseInt(String.valueOf(session.get("orderID"))));
         
-        if(!pickingDao.getClientID(Integer.parseInt(String.valueOf(session.get("orderID")))).equals("error") && 
-                packingDao.createPackingPallete(new PalletsPacked(0, Integer.parseInt((String) session.get("userID")), 
-                Integer.parseInt(pickingDao.getClientID(Integer.parseInt(String.valueOf(session.get("orderID"))))), 
-                String.valueOf(session.get("order")), Calendar.getInstance().getTime(), "pallete")))
+        if(!clientID.contains("error") && 
+            packingDao.createPackingPallete(new PalletsPacked(id, userID, Integer.parseInt(clientID), phrase, 
+                                                                                                  Calendar.getInstance().getTime(), "pallete")))
         {
             session.put("items", null);
             session.put("orderID", null);
@@ -49,11 +52,10 @@ public class PackingButtonAction extends AbstractPackingAction implements Sessio
             session.put("check", null);
             session.put("safe", null);
 
-            return (String) session.get("rank");
+            return String.valueOf(session.get("rank"));
         }else{
-            if(pickingDao.updatePickedPallete(Integer.parseInt(String.valueOf(session.get("orderID"))), String.valueOf(session.get("safe")))){
+            if(pickingDao.updatePickedPallete(Integer.parseInt(orderID), String.valueOf(session.get("safe"))))
                 return INPUT;
-            }
             
             return "error";
         }
