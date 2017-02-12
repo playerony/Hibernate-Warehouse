@@ -11,6 +11,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
@@ -26,6 +27,7 @@ public class Client implements Serializable {
     private String name;
     private String address;
     private String phone;
+    private Order order;
     
     public Client(){
         
@@ -50,7 +52,7 @@ public class Client implements Serializable {
     }
     
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name="client_id")
     public int getId() {
         return id;
@@ -60,7 +62,7 @@ public class Client implements Serializable {
         this.id = id;
     }
 
-    @Column(name="client_name", nullable = false)
+    @Column(name="client_name")
     public String getName() {
         return name;
     }
@@ -69,7 +71,7 @@ public class Client implements Serializable {
         this.name = name;
     }
 
-    @Column(name="client_address", nullable = false)
+    @Column(name="client_address")
     public String getAddress() {
         return address;
     }
@@ -78,12 +80,21 @@ public class Client implements Serializable {
         this.address = address;
     }
 
-    @Column(name="client_phone", nullable = false, length=11)
+    @Column(name="client_phone")
     public String getPhone() {
         return phone;
     }
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+    
+    @OneToOne(mappedBy = "client")
+    public Order getOrder() {
+        return order;
+    }
+
+    public void setOrder(Order order) {
+        this.order = order;
     }
 }
