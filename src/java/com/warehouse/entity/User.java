@@ -22,22 +22,12 @@ import javax.persistence.Table;
 @Table(name="worker")
 public class User implements Serializable{
     
-    @Id
-    @Column(name="worker_id")
-    @GeneratedValue(strategy=GenerationType.AUTO)
     private int id;
-    
-    @Column(name="worker_firstname")
     private String firstname;
-    @Column(name="worker_lastname")
     private String lastname;
-    @Column(name="work_place")
     private String place;
-    @Column(name="worker_login")
     private String login;
-    @Column(name="worker_password")
     private String password;
-    @Column(name="worker_rank")
     private String rank;
     
     public User(){
@@ -61,6 +51,9 @@ public class User implements Serializable{
         this.rank = rank;
     }
 
+    @Id
+    @Column(name="worker_id")
+    @GeneratedValue(strategy=GenerationType.AUTO)
     public int getId() {
         return id;
     }
@@ -69,6 +62,7 @@ public class User implements Serializable{
         this.id = id;
     }
     
+    @Column(name="worker_firstname")
     public String getFirstname() {
         return firstname;
     }
@@ -77,6 +71,7 @@ public class User implements Serializable{
         this.firstname = firstname;
     }
 
+    @Column(name="worker_lastname")
     public String getLastname() {
         return lastname;
     }
@@ -85,6 +80,7 @@ public class User implements Serializable{
         this.lastname = lastname;
     }
     
+    @Column(name="worker_login")
     public String getLogin() {
         return login;
     }
@@ -93,6 +89,7 @@ public class User implements Serializable{
         this.login = login;
     }
 
+    @Column(name="worker_password")
     public String getPassword() {
         return password;
     }
@@ -101,6 +98,7 @@ public class User implements Serializable{
         this.password = password;
     }
     
+    @Column(name="work_place")
     public String getPlace() {
         return place;
     }
@@ -109,6 +107,7 @@ public class User implements Serializable{
         this.place = place;
     }
 
+    @Column(name="worker_rank")
     public String getRank() {
         return rank;
     }
