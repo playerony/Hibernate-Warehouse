@@ -19,7 +19,7 @@ public class PackingService {
     public static void insert(PalletsPacked palletsPacked, SessionFactory sessionFactory) {
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
-        session.persist(palletsPacked);
+        session.save(palletsPacked);
         
         transaction.commit();
         session.close();
