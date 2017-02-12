@@ -5,6 +5,7 @@
  */
 package com.warehouse.dao.packing;
 
+import com.warehouse.dao.picking.PickingDao;
 import com.warehouse.entity.PalleteInfo;
 import com.warehouse.entity.PalletsPacked;
 import com.warehouse.entity.PalletsPicked;
@@ -15,7 +16,7 @@ import java.util.Map;
  * @author pawel_000
  */
 public interface PackingDao {
-    public boolean packButtonAction(PalletsPicked palletsPicked, PalleteInfo palleteInfo, Map<String, Object> session);
+    public boolean packButtonAction(PalletsPicked palletsPicked, PalleteInfo palleteInfo, PickingDao pickingDao, Map<String, Object> session);
     
     public String getProducts(int id);
     

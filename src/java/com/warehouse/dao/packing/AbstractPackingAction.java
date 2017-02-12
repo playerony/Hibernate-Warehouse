@@ -6,10 +6,11 @@
 package com.warehouse.dao.packing;
 
 import com.opensymphony.xwork2.ActionSupport;
+import com.warehouse.dao.picking.PickingDao;
 import com.warehouse.entity.PalleteInfo;
 import com.warehouse.entity.PalletsPicked;
 import com.warehouse.impl.PackingDaoImpl;
-import com.warehouse.impl.UserDaoImpl;
+import com.warehouse.impl.PickingDaoImpl;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -21,11 +22,13 @@ public abstract class AbstractPackingAction extends ActionSupport{
     protected PalletsPicked palletsPicked;
     protected PalleteInfo palleteInfo;
     protected PackingDao packingDao;
+    protected PickingDao pickingDao;
     
     public AbstractPackingAction(){
         ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
         
-        packingDao = context.getBean(PackingDaoImpl.class);
+        packingDao = context.getBean("packingDao", PackingDaoImpl.class);
+        pickingDao = context.getBean("pickingDao", PickingDaoImpl.class);
     }
     
     @Override

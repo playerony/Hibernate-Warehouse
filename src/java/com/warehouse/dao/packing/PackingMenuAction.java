@@ -17,20 +17,18 @@ public class PackingMenuAction extends AbstractPackingAction implements SessionA
 
     @Override
     public void validate() {
-        if(String.valueOf(palletsPicked.getId()) == null) {
+        if(String.valueOf(palletsPicked.getId()) == null) 
             this.addActionError("It's not a number!");
-        }
         
-        if(palletsPicked.getId() <= (0)) {
+        if(palletsPicked.getId() <= (0)) 
             this.addActionError("Wrong number");
-        }
     }
 
     @Override
     public String execute() {
-        if(packingDao.packButtonAction(palletsPicked, palleteInfo, session)){
+        if(packingDao.packButtonAction(palletsPicked, palleteInfo, pickingDao, session))
             return SUCCESS;
-        }else{
+        else{
             this.addActionError("Some problems by packing item!");
             
             return INPUT;
